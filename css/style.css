@@ -1,132 +1,55 @@
-/*
-Theme Name: Dilasag
-Description: Free html and css light colored template
-Version: 1 
-*/
 
-/*** Reset ***/
-html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td { background: transparent; border: 0; font-size: 100%; margin: 0; outline: 0; padding: 0; vertical-align: baseline; }
-ol,ul { list-style: none; }
-blockquote,q { quotes: none; }
-blockquote:before,blockquote:after,q:before,q:after { content: ''; content: none; }
-:focus { outline: 0; }
-img { vertical-align: bottom; }
-ins { text-decoration: none; }
-del { text-decoration: line-through; }
-table { border-collapse: collapse; border-spacing: 0; }
+/* BASIC RESET */
+ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,body,html,p,blockquote,fieldset,input{margin:0; padding:0;}
 
-/*** Clearfix ***/
-.clearfix:after { visibility: hidden; display: block; font-size: 0; content: "."; clear: both; height: 0; }
-.clear { clear: both; }
+/* HTML ELEMENTS */
+body { background-color:#1b2940; font:62.5% Georgia,'Times New Roman',serif; letter-spacing:1; }
 
-/*** Positioning and Alignment ***/
-.fl { float: left; }
-.fr { float: right; }
-.txt-left { text-align: left; }
-.txt-right { text-align: right; }
-.txt-center { text-align: center; }
+/* COMMON CLASSES */
+.break { clear:both; }
 
-/*** General Settings ***/
-html, body { height: 100%; }
-body { background: #f0f0f0; color: #5f5f5f; font-family: Arial, Helvetica, sans-serif; font-size: 14px; }
-h1,h2,h3,h4,h5,h6 { font-weight: normal; margin-bottom: 15px; }
-p { margin: 0 0 15px 0; }
-a { color: #70a3b4; text-decoration: none; }
-a:hover { text-decoration: underline; }
+/* HEADER */
+#header { height:600px; }
+.headerimg { background-position: center top; background-repeat: no-repeat; width:100%; height:600px; position:absolute; }
 
-#wrapper { height: auto !important; margin-bottom: -18px;  min-height: 100%; }
+/* NAVIGATION */
+#nav-outer { height:110px; padding-top:11px; position:relative; top:24px; background-image:url("../images/headerbg.png"); }
+#navigation { height:100px; width:960px; margin:0 auto; background-image:url("../images/logo.png"); background-position:top left; background-repeat:no-repeat; }
 
-.container { margin: 0px auto; width: 960px; }
+/* SEARCH */
+#search { background-color:#051733; float:right; width:220px; padding:10px; }
+#searchtxt { padding:3px; width:150px; }
+#searchbtn { border:1px solid #eee !important; background-color:#CD2B3A; color:#eee; padding:3px; margin-left:5px; }
 
-/*** Header ***/
-#header { background: #e4e4e4; border-bottom: 1px solid #d9d9d9; border-top: 5px solid #cccccc; height: 60px; }
-#header h1 { float: left; margin: 15px 0px 0px; }
-#header h1 a { color: #5f5f5f; font-family: Century Gothic, sans-serif; font-size: 22px; font-weight: bold; text-decoration: none; }
+/* MENU */
+#menu { position:relative; top:85px; }
+#menu ul { list-style:none; }
+#menu ul li { display:inline; font-variant:small-caps; font-size:12px; }
+#menu ul li a { color:white; text-decoration:none; font-weight:bold; padding-right:20px; }
+#menu ul li a:hover { text-decoration:underline; }
 
-ul.menu { margin: 28px 0px 0px; }
-ul.menu li { float: left; margin: 0px 0px 0px 25px; }
-ul.menu li a { color: #5f5f5f; font-family: Georgia, Serif; font-size: 14px; }
-ul.menu li a:hover, ul.menu li.active a { color: #70a3b4; text-decoration: none; }
+/* HEADER TEXT */
+#headertxt { width:960px; margin:0 auto; clear:both; position:relative; top:74px; }
+#firstline { background-image:url("../images/textbg.png"); color:#333; font-size:40px; padding:4px 13px 7px; float:left; display:block; }
+#secondline { background-image:url("../images/textbg.png"); color:#CD2B3A; text-decoration:none; font-size:60px; padding:0 13px 10px; float:left; display:block; clear:both; }
+#secondline:hover { text-decoration:underline; color:#7F000C; }
 
-/*** Main ***/
-#main { padding: 25px 0px 40px; }
+.pictured { background-color:#CC3333; color:#FFF; font-size:12px; padding:9px 16px; text-transform:uppercase; float:left; display:block; clear:both; margin-top:10px; }
+.pictured a { font-size:16px; font-style:italic; letter-spacing:0; text-transform:none; color:#FFF; text-decoration:none; }
+.pictured a:hover { text-decoration:underline; }
 
-/*** Slideshow ***/
-#slideshow { background: #cccccc; height: 380px!important; margin: 0px 10px 50px; position: relative; width: 940px; -moz-box-shadow: 0 0 5px #888; -webkit-box-shadow: 0 0 5px#888; box-shadow: 0 0 5px #888; }
-#slideshow .nivo-controlNav { bottom: -40px; left: 50%; margin-left: -30px; position: absolute;  }
-#slideshow .nivo-controlNav .nivo-control { background: url(../images/bullets.png) no-repeat; display: block; float: left; height: 20px; text-indent: -9999px; width: 22px; }
-#slideshow .nivo-controlNav .nivo-control.active { background: url(../images/bullets.png) no-repeat scroll 0 -22px; }
+/* CONTROLS */
+.btn { height:32px; width:32px; float:left; cursor:pointer; }
+#back { background-image:url("../images/btn_back.png"); }
+#next { background-image:url("../images/btn_next.png"); }
+#control { background-image:url("../images/btn_pause.png"); }
 
+/* HEADER HAVIGATION */
+#headernav-outer { position:relative; top:400px; margin:0 auto; width:960px; }
+#headernav { padding-left:864px; }
 
-.intro { margin: 0px 10px 50px; }
-.intro p { font-size: 22px; text-align: center; }
-
-#about { margin: 0px 10px 30px; }
-#about .column { float: left; margin-right: 40px; width: 200px; }
-#about .column.last { margin-right: 0px; }
-#about .column .image { background: #cccccc; height: 120px; margin-bottom: 15px; width: 200px; -moz-box-shadow: 0 0 5px #888; -webkit-box-shadow: 0 0 5px#888; box-shadow: 0 0 5px #888; }
-#about .column h2 { color: #000000; font-family: Georgia, Serif; font-size: 16px; }
-
-/*** Footer ***/
-#footer { background: #e4e4e4; border-top: 1px solid #d9d9d9;  }
-#footer .container { height: 46px; overflow: hidden; }
-#footer, .pust { height: 46px; }
-#footer p { float: right; font-size: 12px; margin: 15px 0px 0px; }
-#footer ul.menu { margin-top: 15px; }
-#footer ul.menu li { margin: 0px 25px 0px 0px; }
-
-/*** Content ***/
-.content {  }
-.content h1 { font-family: Georgia, Serif; font-size: 26px; }
-.content h2 { font-family: Georgia, Serif; font-size: 20px; }
-.content h3 { font-family: Georgia, Serif; font-size: 16px; }
-.content ul { line-height: 22px; list-style: disc; margin-bottom: 15px; padding-left: 45px; }
-.content ol { line-height: 22px; list-style: decimal; margin-bottom: 15px; padding-left: 45px; }
-.content p { line-height: 22px; margin: 0 0 15px 0; }
-.content .image { border: 5px solid #ffffff; }
-.content .image.fl { margin: 0px 20px 15px 0px; }
-.content .image.fr { margin: 0px 0px 15px 20px; }
-
-#content { float: left; width: 660px; }
-#sidebar { float: right; width: 200px; }
-
-
-/*** Gallery ***/
-#gallery {  }
-#gallery .item { background: #cccccc; border: 5px solid #ffffff; float: left; height: 180px; margin: 0px 20px 40px 20px; width: 180px; }
-
-/*** Blog ***/
-#blog {}
-#blog .post { margin-bottom: 20px; overflow: hidden; }
-#blog .post h2 { margin-bottom: 0px; }
-#blog .post .date { border-bottom: 1px solid #ccc; font-size: 12px; margin-bottom: 10px; padding-bottom: 10px; }
-
-
-/*** Widget ***/
-.widget { margin-bottom: 25px; }
-.widget h3 { border-bottom: 1px solid #ccc; font-family: Georgia,Serif; font-size: 18px; margin-bottom: 10px; padding-bottom: 10px; }
-
-.widget .search {  }
-.widget .search .input-txt { height: 14px; padding: 5px; }
-.widget .search .input-btn { cursor: pointer; height: 28px; padding: 0px; width: 40px; }
-
-
-.widget .menu { list-style: square; margin: 0px; }
-.widget .menu li { float: none; line-height: 20px; }
-
-/*** Contact ***/
-#contact-form { float: left; margin-right: 30px; width: 500px; }
-#contact-form p { margin-bottom: 20px; overflow: hidden; }
-#contact-form label { float: left; width: 100px; }
-#contact-form .input-txt { height: 20px; width: 200px; }
-#contact-form .input-btn { margin-left: 100px; }
-
-#contact-map { float: left; width: 300px; }
-
-.tabs li {	list-style:none; display:inline; }
-
-.tabs a {	padding:5px 10px;	display:inline-block;	background:#666;	color:#fff;	text-decoration:none;}
-
-.tabs a.active {	background:#abc; 	color:#000;	}
-
-.tabbed .user div {	padding:10px;	width:600px;	background:#fff;	}
+/* CONTENT */
+#content { color:#575757; background-color:#eee; }
+#content p { padding:10px 20px; font-size:16px; width:960px; margin:0 auto; }
+#content p a { text-decoration:none; color:#CD2B3A; }
+#content p a:hover { text-decoration:underline; color:#7F000C; }

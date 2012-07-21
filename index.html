@@ -1,22 +1,15 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta name="description" content="Project Description" />
-    <meta name="keywords" content="Project Keywords" />
-    <title>GetourGuide</title>	
-    <link href="css/style.css" rel="stylesheet" type="text/css" />	
-	<link href="css/nivo-slider.css" rel="stylesheet" type="text/css" />
-	<script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
-	<script type="text/javascript" src="js/jquery.nivo.slider.js"></script>
-<script type="text/javascript">
-		$(window).load(function() {
-			$('#slideshow').nivoSlider({
-				directionNav: false
-			});
-		});
-	</script>
-	<script>
+<meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>
+<title>Getourguide</title>
+<link rel="stylesheet" type="text/css" href="css/style.css"/>
+<link rel="stylesheet" type="text/css" href="css/style2.css"/>
+<link href="css/nivo-slider.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="js/script.js"></script>
+
+   <script>
 		$(document).ready(function(){
 			$('ul.tabs').each(function(){
 				// For each set of tabs, we want to keep track of
@@ -54,14 +47,12 @@
 	</script>
 
 </head>
-
 <body>
 
-<div id="wrapper">
-	<div id="header">
-		<div class="container">
+<div id="header_top">
+	<div class="container">
 			<h1>
-				<a href="index.html" title="Dilasag"><img src="images/logo.gif" width="300" height="67" alt="getourguide" /></a></h1>
+				<a href="index.html" title="Dilasag"><img src="images/logo.gif" width="260" height="40" alt="getourguide" /></a></h1>
 			<ul class="menu fr">
 			  <li class="active"><a href="index.html" title="Home">Home</a></li>
 				<li><a href="about.html" title="About">About</a></li>
@@ -69,17 +60,60 @@
 				<li><a href="blog.html" title="Blog">Blog</a></li>
 				<li><a href="contact-us.html" title="Contact Us">Contact Us</a></li>
 			</ul>
-		</div>
-	</div><!-- // end #header -->
+	</div>
+</div><!-- // end #header -->
 
-	<div id="main">
-		<div class="container">
-			<div id="slideshow">
-				<img src="images/slideshow/slideshow-1.jpg" alt="Slideshow Image" />
-				<img src="images/slideshow/slideshow-2.jpg" alt="Slideshow Image" />
-				<img src="images/slideshow/slideshow-3.jpg" alt="Slideshow Image" />
-				<img src="images/slideshow/slideshow-4.jpg" alt="Slideshow Image" />
-			</div><!-- // end #slideshow -->
+<div id="header">
+	<!-- jQuery handles to place the header background images -->
+	<div id="headerimgs">
+		<div id="headerimg1" class="headerimg"></div>
+		<div id="headerimg2" class="headerimg"></div>
+	</div>
+	<!-- Top navigation on top of the images -->
+	<!--<div id="nav-outer">
+		<div id="navigation">
+			<div id="search">
+				<form>
+					<input type="text" id="searchtxt" />
+					<input type="submit" value="search" id="searchbtn" />
+				</form>
+			</div>
+			<div id="menu">
+				<ul>
+					<li><a href="http://www.marcofolio.net/">Marcofolio</a></li>
+					<li><a href="http://www.twitter.com/marcofolio">Twitter</a></li>
+					<li><a href="http://feeds2.feedburner.com/marcofolio">RSS</a></li>
+					<li><a href="http://jquery.com/">jQuery</a></li>
+					<li><a href="http://en.wikipedia.org/wiki/Cascading_Style_Sheets">CSS</a></li>
+					<li><a href="http://buysellads.com/buy/detail/956">Advertisements</a>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<!-- Slideshow controls -->
+	<div id="headernav-outer">
+		<div id="headernav">
+			<div id="back" class="btn"></div>
+			<div id="control" class="btn"></div>
+			<div id="next" class="btn"></div>
+		</div>
+	</div>
+	<!-- jQuery handles for the text displayed on top of the images -->
+	<div id="headertxt">
+		<p class="caption">
+			<span id="firstline"></span>
+			<a href="#" id="secondline"></a>
+		</p>
+		<p class="pictured">
+			Pictured:
+			<a href="#" id="pictureduri"></a>
+		</p>
+	</div>
+</div>
+
+
+<div id="main">
+		<div class="container">			
 			<div class="intro">
 				<p>Backpacking becomes more fun!</p>
 			</div><!-- // end .intro -->
@@ -129,7 +163,9 @@
 		  </div><!-- // end #articles -->
 	  </div>
 		<div class="push"></div>
-	</div><!-- // end #main -->
+</div><!-- // end #main -->
+
+<div id="content">
 </div>
 
 <div id="footer">
@@ -141,14 +177,12 @@
 			<li><a href="contact-us.html" title="Contact Us">Contact Us</a></li>
 		</ul>
         <span class='st_sharethis_large' displayText='ShareThis'></span>
-<span class='st_facebook_large' displayText='Facebook'></span>
-<span class='st_twitter_large' displayText='Tweet'></span>
-<span class='st_plusone_large' displayText='Google +1'></span>
-<span class='st_email_large' displayText='Email'></span>
+		<span class='st_facebook_large' displayText='Facebook'></span>
+		<span class='st_twitter_large' displayText='Tweet'></span>
+		<span class='st_plusone_large' displayText='Google +1'></span>
+		<span class='st_email_large' displayText='Email'></span>
 		<p>&copy; Treshno Tech, Pte. Ltd. 2012 | <a href="http://google.com">http://tresno.com</a></p>
 	</div>
 </div><!-- // end #fppter -->
-	
-	
 </body>
 </html>
