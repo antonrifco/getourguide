@@ -1,0 +1,154 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="description" content="Project Description" />
+    <meta name="keywords" content="Project Keywords" />
+    <title>GetourGuide</title>	
+    <link href="css/style.css" rel="stylesheet" type="text/css" />	
+	<link href="css/nivo-slider.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
+	<script type="text/javascript" src="js/jquery.nivo.slider.js"></script>
+<script type="text/javascript">
+		$(window).load(function() {
+			$('#slideshow').nivoSlider({
+				directionNav: false
+			});
+		});
+	</script>
+	<script>
+		$(document).ready(function(){
+			$('ul.tabs').each(function(){
+				// For each set of tabs, we want to keep track of
+				// which tab is active and it's associated content
+				var $active, $content, $links = $(this).find('a');
+				// Use the first link as the initial active tab
+
+				$active = $links.first().addClass('active');
+				$content = $($active.attr('href'));
+
+				// Hide the remaining content
+				$links.not(':first').each(function () {
+					$($(this).attr('href')).hide();
+				});
+
+				// Bind the click event handler
+				$(this).on('click', 'a', function(e){
+					// Make the old tab inactive.
+					$active.removeClass('active');
+					$content.hide();
+
+					// Update the variables with the new link and content
+					$active = $(this);
+					$content = $($(this).attr('href'));
+
+					// Make the tab active.
+					$active.addClass('active');
+					$content.show();
+
+					// Prevent the anchor's default click action
+					e.preventDefault();
+				});
+			});
+		});
+	</script>
+
+</head>
+
+<body>
+
+<div id="wrapper">
+	<div id="header">
+		<div class="container">
+			<h1>
+				<a href="index.html" title="Dilasag"><img src="images/logo.gif" width="300" height="67" alt="getourguide" /></a></h1>
+			<ul class="menu fr">
+			  <li class="active"><a href="index.html" title="Home">Home</a></li>
+				<li><a href="about.html" title="About">About</a></li>
+				<li><a href="gallery.html" title="Gallery">Gallery</a></li>
+				<li><a href="blog.html" title="Blog">Blog</a></li>
+				<li><a href="contact-us.html" title="Contact Us">Contact Us</a></li>
+			</ul>
+		</div>
+	</div><!-- // end #header -->
+
+	<div id="main">
+		<div class="container">
+			<div id="slideshow">
+				<img src="images/slideshow/slideshow-1.jpg" alt="Slideshow Image" />
+				<img src="images/slideshow/slideshow-2.jpg" alt="Slideshow Image" />
+				<img src="images/slideshow/slideshow-3.jpg" alt="Slideshow Image" />
+				<img src="images/slideshow/slideshow-4.jpg" alt="Slideshow Image" />
+			</div><!-- // end #slideshow -->
+			<div class="intro">
+				<p>Backpacking becomes more fun!</p>
+			</div><!-- // end .intro -->
+		  <div id="about" class="clearfix">
+				<div class="column">
+					<h2>Tourist Spots</h2>
+					<div class="image"><img src="images/article/article-thumb-1.jpg" alt="Article Image" /></div>
+					<p>Canawer one of the best outdoor destinations in Dilasag decorated with fine white sand, colorful coral reefs and diverse marine life.</p>
+				</div>
+				<div class="column">
+					<h2>Fresh Seafoods</h2>
+					<div class="image"><img src="images/article/article-thumb-2.jpg" alt="Article Image" /></div>
+					<p>Enjoy the goodness of the sea as we give you the various kind of fresh sea-foods in the perimeter of Dilasag town.</p>
+				</div>
+				<div class="column">
+					<h2>Handy Crafts</h2>
+					<div class="image"><img src="images/article/article-thumb-3.jpg" alt="Article Image" /></div>
+					<p>Well-polished handy crafts from various raw materials will give you a totally unique style and design.</p>
+				</div>
+		    <div class="column last">
+					<h2>Adventures</h2>
+					<div class="image"><img src="images/article/article-thumb-4.jpg" alt="Article Image" /></div>
+					<p>Adventures are few steps from the town proper. Surfing, biking and scuba diving are the most exciting adventures you can have in Dilasag.</p>
+			  </div>
+              <div class="tabbed user">
+              	<ul class='tabs'>
+                    <li><a href='#tab1'>New Members</a></li>        
+                    <li><a href='#tab2'>Recommended</a></li>        
+                    <li><a href='#tab3'>Highest Rating</a></li>        
+                </ul>        
+                <div id='tab1'>        
+                    <h3>Section 1</h3>
+        
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec lobortis placerat dolor id aliquet. Sed a orci in justo blandit commodo. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae.</p>        
+                </div>        
+                <div id='tab2'>        
+                    <h3>Section 2</h3>
+        
+                    <p>Aenean et est tortor. In pharetra pretium convallis. Mauris sollicitudin ligula non mi hendrerit varius. Fusce convallis hendrerit mauris, eu accumsan nisl aliquam eu.</p>        
+                </div>        
+                <div id='tab3'>        
+                    <h3>Section 3</h3>
+        
+                    <p>Suspendisse potenti. Morbi laoreet magna vitae est mollis ultricies. Mauris eget enim ac justo eleifend malesuada. Proin non consectetur est. Integer semper laoreet porta. Praesent facilisis leo nec libero tincidunt blandit.</p>        
+                </div>
+           	  </div>
+		  </div><!-- // end #articles -->
+	  </div>
+		<div class="push"></div>
+	</div><!-- // end #main -->
+</div>
+
+<div id="footer">
+	<div class="container">
+		<ul class="menu fl">
+			<li><img src="images/twitter.png" title="Post to twitter"/></li>
+			<li><img src="images/facebook.png" title="Post to Facebook"/></li>
+			<li><img src="images/google.png" title="Post to Google+"/></li>
+			<li><a href="contact-us.html" title="Contact Us">Contact Us</a></li>
+		</ul>
+        <span class='st_sharethis_large' displayText='ShareThis'></span>
+<span class='st_facebook_large' displayText='Facebook'></span>
+<span class='st_twitter_large' displayText='Tweet'></span>
+<span class='st_plusone_large' displayText='Google +1'></span>
+<span class='st_email_large' displayText='Email'></span>
+		<p>&copy; Treshno Tech, Pte. Ltd. 2012 | <a href="http://google.com">http://tresno.com</a></p>
+	</div>
+</div><!-- // end #fppter -->
+	
+	
+</body>
+</html>
