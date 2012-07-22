@@ -61,7 +61,7 @@ $(document).ready(function() {
 		stopAnimation();
 	}, function() {
 		// Change the background image to "pause"
-		$(this).css({ "background-image" : "url(images/btn_pause.png)" });
+		$(this).css({ "background-image" : "url(../content/images/btn_pause.png)" });
 		
 		// Show the next image
 		navigate("next");
@@ -116,7 +116,7 @@ $(document).ready(function() {
 		
 		// Set the background image of the new active container
 		$("#headerimg" + activeContainer).css({
-			"background-image" : "url(images/" + photoObject.image + ")",
+			"background-image" : "url(../content/images/" + photoObject.image + ")",
 			"display" : "block",
 			"z-index" : currentZindex
 		});
@@ -146,7 +146,7 @@ $(document).ready(function() {
 	
 	var stopAnimation = function() {
 		// Change the background image to "play"
-		$("#control").css({ "background-image" : "url(images/btn_play.png)" });
+		$("#control").css({ "background-image" : "url(../content/images/btn_play.png)" });
 		
 		// Clear the interval
 		clearInterval(interval);
