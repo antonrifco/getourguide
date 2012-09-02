@@ -5,10 +5,12 @@
 <title>Getourguide</title>
 <link rel="stylesheet" type="text/css" href="../content/css/style.css"/>
 <link rel="stylesheet" type="text/css" href="../content/css/style2.css"/>
+<link rel="stylesheet" type="text/css" href="../content/css/metrojs.css"/>
 <link href="../content/css/nivo-slider.css" rel="stylesheet" type="text/css" />
 <link rel="shortcut icon" href="https://a2.muscache.com/airbnb/static/logotype_favicon-6ba9bbe6f8ca077e990ca287d87b10b5.ico">
 <script type="text/javascript" src="../scripts/jquery-1.7.1.min.js"></script>
 <script type="text/javascript" src="../scripts/script.js"></script>
+<script type="text/javascript" src="../scripts/metrojs.js"></script>
 
    <script>
 		$(document).ready(function(){
@@ -114,12 +116,11 @@
 	</div>
 </div>
 
-
+<div class="intro">
+    <p>Backpacking becomes more fun!</p>
+</div><!-- // end .intro -->
 <div id="main">
-		<div class="container">			
-			<div class="intro">
-				<p>Backpacking becomes more fun!</p>
-			</div><!-- // end .intro -->
+		<div class="container">
 		  <div id="about" class="clearfix">
 				<div class="column">
 					<h2>Tourist Spots</h2>
@@ -148,20 +149,156 @@
                     <li><a href='#tab3'>Highest Rating</a></li>        
                 </ul>        
                 <div id='tab1'>        
-                    <h3>Section 1</h3>
-        
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec lobortis placerat dolor id aliquet. Sed a orci in justo blandit commodo. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae.</p>        
+                    <div class="red">
+                        <div id="tile1" class="live-tile" data-stack="true" data-delay="750" data-initdelay="750">
+                            <span class="tile-title">Anton</span>
+                            <!-- adding the 'full' class to an 'img' or 'a' tag causes it to fill the entire tile -->
+                            <div><a class="full" href="#">Guide 1</a></div>
+                            <div>
+                                <p>Experienced in guiding Singaporean</p>
+                            </div>
+                        </div>
+                        <div id="tile2" class="live-tile blue" data-delay="750" data-initdelay="750" data-mode="flip">    
+                            <div>front
+                               <span class="tile-title">Budi</span>
+                            </div>
+                            <div>
+                                <p class="full">Experienced in guiding Indonesian
+                                <span class="tile-title">Budi</span>
+                                </p>
+                            </div>
+                        </div>
+                        <div id="tile3" class="live-tile blue" data-delay="750" data-initdelay="750" data-mode="flip">    
+                            <div>front
+                               <span class="tile-title">Habibi</span>
+                            </div>
+                            <div>
+                                <p class="full">Experienced in guiding Vietnamese
+                                <span class="tile-title">Habibi</span>
+                                </p>
+                            </div>
+                        </div>
+                        <div id="tile4" class="live-tile blue" data-delay="750" data-initdelay="750" data-mode="flip">    
+                            <div>front
+                               <span class="tile-title">Ari</span>
+                            </div>
+                            <div>
+                                <p class="full">Experienced in guiding Japanese
+                                <span class="tile-title">Ari</span>
+                                </p>
+                            </div>
+                        </div>
+                        <div id="tile5" class="live-tile blue" data-delay="750" data-initdelay="750" data-mode="flip">    
+                            <div>front
+                               <span class="tile-title">Arif</span>
+                            </div>
+                            <div>
+                                <p class="full">Experienced in guiding Arab
+                                <span class="tile-title">Arif</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>      
                 </div>        
                 <div id='tab2'>        
-                    <h3>Section 2</h3>
-        
-                    <p>Aenean et est tortor. In pharetra pretium convallis. Mauris sollicitudin ligula non mi hendrerit varius. Fusce convallis hendrerit mauris, eu accumsan nisl aliquam eu.</p>        
+                    <div id="tile1" class="live-tile" data-stack="true" data-delay="750" data-initdelay="750">
+                            <span class="tile-title">Anton</span>
+                            <!-- adding the 'full' class to an 'img' or 'a' tag causes it to fill the entire tile -->
+                            <div><a class="full" href="#">Guide 1</a></div>
+                            <div>
+                                <p>Experienced in guiding Singaporean</p>
+                            </div>
+                        </div>
+                        <div id="tile2" class="live-tile blue" data-delay="750" data-initdelay="750" data-mode="flip">    
+                            <div>front
+                               <span class="tile-title">Budi</span>
+                            </div>
+                            <div>
+                                <p class="full">Experienced in guiding Indonesian
+                                <span class="tile-title">Budi</span>
+                                </p>
+                            </div>
+                        </div>
+                        <div id="tile3" class="live-tile blue" data-delay="750" data-initdelay="750" data-mode="flip">    
+                            <div>front
+                               <span class="tile-title">Habibi</span>
+                            </div>
+                            <div>
+                                <p class="full">Experienced in guiding Vietnamese
+                                <span class="tile-title">Habibi</span>
+                                </p>
+                            </div>
+                        </div>
+                        <div id="tile4" class="live-tile blue" data-delay="750" data-initdelay="750" data-mode="flip">    
+                            <div>front
+                               <span class="tile-title">Ari</span>
+                            </div>
+                            <div>
+                                <p class="full">Experienced in guiding Japanese
+                                <span class="tile-title">Ari</span>
+                                </p>
+                            </div>
+                        </div>
+                        <div id="tile5" class="live-tile blue" data-delay="750" data-initdelay="750" data-mode="flip">    
+                            <div>front
+                               <span class="tile-title">Arif</span>
+                            </div>
+                            <div>
+                                <p class="full">Experienced in guiding Arab
+                                <span class="tile-title">Arif</span>
+                                </p>
+                            </div>
+                        </div>   
                 </div>        
                 <div id='tab3'>        
-                    <h3>Section 3</h3>
-        
-                    <p>Suspendisse potenti. Morbi laoreet magna vitae est mollis ultricies. Mauris eget enim ac justo eleifend malesuada. Proin non consectetur est. Integer semper laoreet porta. Praesent facilisis leo nec libero tincidunt blandit.</p>        
-                </div>
+                    <div id="tile1" class="live-tile" data-stack="true" data-delay="750" data-initdelay="750">
+                            <span class="tile-title">Anton</span>
+                            <!-- adding the 'full' class to an 'img' or 'a' tag causes it to fill the entire tile -->
+                            <div><a class="full" href="#">Guide 1</a></div>
+                            <div>
+                                <p>Experienced in guiding Singaporean</p>
+                            </div>
+                        </div>
+                        <div id="tile2" class="live-tile blue" data-delay="750" data-initdelay="750" data-mode="flip">    
+                            <div>front
+                               <span class="tile-title">Budi</span>
+                            </div>
+                            <div>
+                                <p class="full">Experienced in guiding Indonesian
+                                <span class="tile-title">Budi</span>
+                                </p>
+                            </div>
+                        </div>
+                        <div id="tile3" class="live-tile blue" data-delay="750" data-initdelay="750" data-mode="flip">    
+                            <div>front
+                               <span class="tile-title">Habibi</span>
+                            </div>
+                            <div>
+                                <p class="full">Experienced in guiding Vietnamese
+                                <span class="tile-title">Habibi</span>
+                                </p>
+                            </div>
+                        </div>
+                        <div id="tile4" class="live-tile blue" data-delay="750" data-initdelay="750" data-mode="flip">    
+                            <div>front
+                               <span class="tile-title">Ari</span>
+                            </div>
+                            <div>
+                                <p class="full">Experienced in guiding Japanese
+                                <span class="tile-title">Ari</span>
+                                </p>
+                            </div>
+                        </div>
+                        <div id="tile5" class="live-tile blue" data-delay="750" data-initdelay="750" data-mode="flip">    
+                            <div>front
+                               <span class="tile-title">Arif</span>
+                            </div>
+                            <div>
+                                <p class="full">Experienced in guiding Arab
+                                <span class="tile-title">Arif</span>
+                                </p>
+                            </div>
+                        </div>
            	  </div>
 		  </div><!-- // end #articles -->
 	  </div>
