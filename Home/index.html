@@ -6,6 +6,7 @@
 <link rel="stylesheet" type="text/css" href="../content/css/style.css"/>
 <link rel="stylesheet" type="text/css" href="../content/css/style2.css"/>
 <link href="../content/css/nivo-slider.css" rel="stylesheet" type="text/css" />
+<link rel="shortcut icon" href="https://a2.muscache.com/airbnb/static/logotype_favicon-6ba9bbe6f8ca077e990ca287d87b10b5.ico">
 <script type="text/javascript" src="../scripts/jquery-1.7.1.min.js"></script>
 <script type="text/javascript" src="../scripts/script.js"></script>
 
@@ -52,7 +53,7 @@
 <div id="header_top">
 	<div class="container">
 			<h1>
-				<a href="index.html" title="Dilasag"><img src="../content/images/logo.gif" width="260" height="40" alt="getourguide" /></a></h1>
+				<a href="index.html" title="Dilasag"><img src="../content/images/logo.gif" alt="getourguide" /></a></h1>
 			<ul class="menu fr">
 			  <li class="active"><a href="index.html" title="Home">Home</a></li>
 				<li><a href="about.html" title="About">About</a></li>
@@ -91,23 +92,25 @@
 		</div>
 	</div>
 	<!-- Slideshow controls -->
-	<div id="headernav-outer">
+	<!--div id="headernav-outer">
 		<div id="headernav">
 			<div id="back" class="btn"></div>
 			<div id="control" class="btn"></div>
 			<div id="next" class="btn"></div>
 		</div>
-	</div>
+	</div-->
 	<!-- jQuery handles for the text displayed on top of the images -->
 	<div id="headertxt">
-		<p class="caption">
-			<span id="firstline"></span>
-			<a href="#" id="secondline"></a>
-		</p>
-		<p class="pictured">
-			Pictured:
-			<a href="#" id="pictureduri"></a>
-		</p>
+		<h1>Find a local Guide</h1>
+      	<h2>Have a memorable vacation with one of our trusted partnet in 199 cities around the world</h2>
+        <form action="https://www.airbnb.com/s" id="search_form" class="custom closed">
+          <input type="text" class="location" autocomplete="off" id="location" name="location" placeholder="Where is your destination?">
+          
+          <button type="submit" class="large pink btn icon-only" id="submit_location">
+            &nbsp;
+          </button>
+          
+        </form>   
 	</div>
 </div>
 
@@ -165,8 +168,7 @@
 		<div class="push"></div>
 </div><!-- // end #main -->
 
-<div id="content">
-</div>
+
 
 <div id="footer">
 	<div class="container">

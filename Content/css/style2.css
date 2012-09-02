@@ -60,7 +60,7 @@ ul.menu li a:hover, ul.menu li.active a { color: #70a3b4; text-decoration: none;
 
 
 .intro { margin: 0px 10px 50px; }
-.intro p { font-size: 22px; text-align: center; }
+.intro p { font-size: 25px; font-weigh: bold; text-align: center;}
 
 #about { margin: 0px 10px 30px; }
 #about .column { float: left; margin-right: 40px; width: 200px; }
@@ -70,8 +70,8 @@ ul.menu li a:hover, ul.menu li.active a { color: #70a3b4; text-decoration: none;
 
 /*** Footer ***/
 #footer { background: #e4e4e4; border-top: 1px solid #d9d9d9;  }
-#footer .container { height: 46px; overflow: hidden; }
-#footer, .pust { height: 46px; }
+#footer .container { height: 60px; overflow: hidden; }
+#footer, .pust { height: 60px; }
 #footer p { float: right; font-size: 12px; margin: 15px 0px 0px; }
 #footer ul.menu { margin-top: 15px; }
 #footer ul.menu li { margin: 0px 25px 0px 0px; }
