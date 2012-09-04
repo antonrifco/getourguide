@@ -1,0 +1,327 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>
+<title>Getourguide</title>
+<link rel="stylesheet" type="text/css" href="../content/css/style.css"/>
+<link rel="stylesheet" type="text/css" href="../content/css/style2.css"/>
+<link rel="stylesheet" type="text/css" href="../content/css/metrojs.css"/>
+<link href="../content/css/nivo-slider.css" rel="stylesheet" type="text/css" />
+<link rel="shortcut icon" href="https://a2.muscache.com/airbnb/static/logotype_favicon-6ba9bbe6f8ca077e990ca287d87b10b5.ico">
+<script type="text/javascript" src="../scripts/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="../scripts/script.js"></script>
+<script type="text/javascript" src="../scripts/metrojs.js"></script>
+
+   <script>
+		$(document).ready(function(){
+			$('ul.tabs').each(function(){
+				// For each set of tabs, we want to keep track of
+				// which tab is active and it's associated content
+				var $active, $content, $links = $(this).find('a');
+				// Use the first link as the initial active tab
+
+				$active = $links.first().addClass('active');
+				$content = $($active.attr('href'));
+
+				// Hide the remaining content
+				$links.not(':first').each(function () {
+					$($(this).attr('href')).hide();
+				});
+
+				// Bind the click event handler
+				$(this).on('click', 'a', function(e){
+					// Make the old tab inactive.
+					$active.removeClass('active');
+					$content.hide();
+
+					// Update the variables with the new link and content
+					$active = $(this);
+					$content = $($(this).attr('href'));
+
+					// Make the tab active.
+					$active.addClass('active');
+					$content.show();
+
+					// Prevent the anchor's default click action
+					e.preventDefault();
+				});
+			});
+		});
+	</script>
+
+</head>
+<body>
+
+<div id="header_top">
+	<div class="container">
+			<h1>
+				<a href="index.html" title="Dilasag"><img src="../content/images/logo.gif" alt="getourguide" /></a></h1>
+			<ul class="menu fr">
+			  <li class="active"><a href="index.html" title="Home">Home</a></li>
+				<li><a href="about.html" title="About">About</a></li>
+				<li><a href="gallery.html" title="Gallery">Gallery</a></li>
+				<li><a href="blog.html" title="Blog">Blog</a></li>
+				<li><a href="contact-us.html" title="Contact Us">Contact Us</a></li>
+			</ul>
+	</div>
+</div><!-- // end #header -->
+
+<div id="header">
+	<!-- jQuery handles to place the header background images -->
+	<div id="headerimgs">
+		<div id="headerimg1" class="headerimg"></div>
+		<div id="headerimg2" class="headerimg"></div>
+	</div>
+	<!-- Top navigation on top of the images -->
+	<!--<div id="nav-outer">
+		<div id="navigation">
+			<div id="search">
+				<form>
+					<input type="text" id="searchtxt" />
+					<input type="submit" value="search" id="searchbtn" />
+				</form>
+			</div>
+			<div id="menu">
+				<ul>
+					<li><a href="http://www.marcofolio.net/">Marcofolio</a></li>
+					<li><a href="http://www.twitter.com/marcofolio">Twitter</a></li>
+					<li><a href="http://feeds2.feedburner.com/marcofolio">RSS</a></li>
+					<li><a href="http://jquery.com/">jQuery</a></li>
+					<li><a href="http://en.wikipedia.org/wiki/Cascading_Style_Sheets">CSS</a></li>
+					<li><a href="http://buysellads.com/buy/detail/956">Advertisements</a>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<!-- Slideshow controls -->
+	<!--div id="headernav-outer">
+		<div id="headernav">
+			<div id="back" class="btn"></div>
+			<div id="control" class="btn"></div>
+			<div id="next" class="btn"></div>
+		</div>
+	</div-->
+	<!-- jQuery handles for the text displayed on top of the images -->
+	<div id="headertxt">
+		<h1>Find a local Guide</h1>
+      	<h2>Have a memorable vacation with one of our trusted partnet in 199 cities around the world</h2>
+        <form action="https://www.airbnb.com/s" id="search_form" class="custom closed">
+          <input type="text" class="location" autocomplete="off" id="location" name="location" placeholder="Where is your destination?">
+          
+          <button type="submit" class="large pink btn icon-only" id="submit_location">
+            &nbsp;
+          </button>
+          
+        </form>   
+	</div>
+</div>
+
+<div class="intro">
+    <p>Backpacking becomes more fun!</p>
+</div><!-- // end .intro -->
+<div id="main">
+		<div class="container">
+		  <div id="about" class="clearfix">
+				<div class="column">
+					<h2>Tourist Spots</h2>
+					<div class="image"><img src="../content/images/article/article-thumb-1.jpg" alt="Article Image" /></div>
+					<p>Canawer one of the best outdoor destinations in Dilasag decorated with fine white sand, colorful coral reefs and diverse marine life.</p>
+				</div>
+				<div class="column">
+					<h2>Fresh Seafoods</h2>
+					<div class="image"><img src="../content/images/article/article-thumb-2.jpg" alt="Article Image" /></div>
+					<p>Enjoy the goodness of the sea as we give you the various kind of fresh sea-foods in the perimeter of Dilasag town.</p>
+				</div>
+				<div class="column">
+					<h2>Handy Crafts</h2>
+					<div class="image"><img src="../content/images/article/article-thumb-3.jpg" alt="Article Image" /></div>
+					<p>Well-polished handy crafts from various raw materials will give you a totally unique style and design.</p>
+				</div>
+		    <div class="column last">
+					<h2>Adventures</h2>
+					<div class="image"><img src="../content/images/article/article-thumb-4.jpg" alt="Article Image" /></div>
+					<p>Adventures are few steps from the town proper. Surfing, biking and scuba diving are the most exciting adventures you can have in Dilasag.</p>
+			  </div>
+              <div class="tabbed user">
+              	<ul class='tabs'>
+                    <li><a href='#tab1'>New Members</a></li>        
+                    <li><a href='#tab2'>Recommended</a></li>        
+                    <li><a href='#tab3'>Highest Rating</a></li>        
+                </ul>        
+                <div id='tab1'>        
+                    <div class="red">
+                        <div id="tile1" class="live-tile" data-stack="true" data-delay="750" data-initdelay="750">
+                            <span class="tile-title">Anton</span>
+                            <!-- adding the 'full' class to an 'img' or 'a' tag causes it to fill the entire tile -->
+                            <div><a class="full" href="#">Guide 1</a></div>
+                            <div>
+                                <p>Experienced in guiding Singaporean</p>
+                            </div>
+                        </div>
+                        <div id="tile2" class="live-tile blue" data-delay="750" data-initdelay="750" data-mode="flip">    
+                            <div>front
+                               <span class="tile-title">Budi</span>
+                            </div>
+                            <div>
+                                <p class="full">Experienced in guiding Indonesian
+                                <span class="tile-title">Budi</span>
+                                </p>
+                            </div>
+                        </div>
+                        <div id="tile3" class="live-tile blue" data-delay="750" data-initdelay="750" data-mode="flip">    
+                            <div>front
+                               <span class="tile-title">Habibi</span>
+                            </div>
+                            <div>
+                                <p class="full">Experienced in guiding Vietnamese
+                                <span class="tile-title">Habibi</span>
+                                </p>
+                            </div>
+                        </div>
+                        <div id="tile4" class="live-tile blue" data-delay="750" data-initdelay="750" data-mode="flip">    
+                            <div>front
+                               <span class="tile-title">Ari</span>
+                            </div>
+                            <div>
+                                <p class="full">Experienced in guiding Japanese
+                                <span class="tile-title">Ari</span>
+                                </p>
+                            </div>
+                        </div>
+                        <div id="tile5" class="live-tile blue" data-delay="750" data-initdelay="750" data-mode="flip">    
+                            <div>front
+                               <span class="tile-title">Arif</span>
+                            </div>
+                            <div>
+                                <p class="full">Experienced in guiding Arab
+                                <span class="tile-title">Arif</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>      
+                </div>        
+                <div id='tab2'>        
+                    <div id="tile1" class="live-tile" data-stack="true" data-delay="750" data-initdelay="750">
+                            <span class="tile-title">Anton</span>
+                            <!-- adding the 'full' class to an 'img' or 'a' tag causes it to fill the entire tile -->
+                            <div><a class="full" href="#">Guide 1</a></div>
+                            <div>
+                                <p>Experienced in guiding Singaporean</p>
+                            </div>
+                        </div>
+                        <div id="tile2" class="live-tile blue" data-delay="750" data-initdelay="750" data-mode="flip">    
+                            <div>front
+                               <span class="tile-title">Budi</span>
+                            </div>
+                            <div>
+                                <p class="full">Experienced in guiding Indonesian
+                                <span class="tile-title">Budi</span>
+                                </p>
+                            </div>
+                        </div>
+                        <div id="tile3" class="live-tile blue" data-delay="750" data-initdelay="750" data-mode="flip">    
+                            <div>front
+                               <span class="tile-title">Habibi</span>
+                            </div>
+                            <div>
+                                <p class="full">Experienced in guiding Vietnamese
+                                <span class="tile-title">Habibi</span>
+                                </p>
+                            </div>
+                        </div>
+                        <div id="tile4" class="live-tile blue" data-delay="750" data-initdelay="750" data-mode="flip">    
+                            <div>front
+                               <span class="tile-title">Ari</span>
+                            </div>
+                            <div>
+                                <p class="full">Experienced in guiding Japanese
+                                <span class="tile-title">Ari</span>
+                                </p>
+                            </div>
+                        </div>
+                        <div id="tile5" class="live-tile blue" data-delay="750" data-initdelay="750" data-mode="flip">    
+                            <div>front
+                               <span class="tile-title">Arif</span>
+                            </div>
+                            <div>
+                                <p class="full">Experienced in guiding Arab
+                                <span class="tile-title">Arif</span>
+                                </p>
+                            </div>
+                        </div>   
+                </div>        
+                <div id='tab3'>        
+                    <div id="tile1" class="live-tile" data-stack="true" data-delay="750" data-initdelay="750">
+                            <span class="tile-title">Anton</span>
+                            <!-- adding the 'full' class to an 'img' or 'a' tag causes it to fill the entire tile -->
+                            <div><a class="full" href="#">Guide 1</a></div>
+                            <div>
+                                <p>Experienced in guiding Singaporean</p>
+                            </div>
+                        </div>
+                        <div id="tile2" class="live-tile blue" data-delay="750" data-initdelay="750" data-mode="flip">    
+                            <div>front
+                               <span class="tile-title">Budi</span>
+                            </div>
+                            <div>
+                                <p class="full">Experienced in guiding Indonesian
+                                <span class="tile-title">Budi</span>
+                                </p>
+                            </div>
+                        </div>
+                        <div id="tile3" class="live-tile blue" data-delay="750" data-initdelay="750" data-mode="flip">    
+                            <div>front
+                               <span class="tile-title">Habibi</span>
+                            </div>
+                            <div>
+                                <p class="full">Experienced in guiding Vietnamese
+                                <span class="tile-title">Habibi</span>
+                                </p>
+                            </div>
+                        </div>
+                        <div id="tile4" class="live-tile blue" data-delay="750" data-initdelay="750" data-mode="flip">    
+                            <div>front
+                               <span class="tile-title">Ari</span>
+                            </div>
+                            <div>
+                                <p class="full">Experienced in guiding Japanese
+                                <span class="tile-title">Ari</span>
+                                </p>
+                            </div>
+                        </div>
+                        <div id="tile5" class="live-tile blue" data-delay="750" data-initdelay="750" data-mode="flip">    
+                            <div>front
+                               <span class="tile-title">Arif</span>
+                            </div>
+                            <div>
+                                <p class="full">Experienced in guiding Arab
+                                <span class="tile-title">Arif</span>
+                                </p>
+                            </div>
+                        </div>
+           	  </div>
+		  </div><!-- // end #articles -->
+	  </div>
+		<div class="push"></div>
+</div><!-- // end #main -->
+
+
+
+<div id="footer">
+	<div class="container">
+		<ul class="menu fl">
+			<li><img src="../content/images/twitter.png" title="Post to twitter"/></li>
+			<li><img src="../content/images/facebook.png" title="Post to Facebook"/></li>
+			<li><img src="../content/images/google.png" title="Post to Google+"/></li>
+			<li><a href="contact-us.html" title="Contact Us">Contact Us</a></li>
+		</ul>
+        <span class='st_sharethis_large' displayText='ShareThis'></span>
+		<span class='st_facebook_large' displayText='Facebook'></span>
+		<span class='st_twitter_large' displayText='Tweet'></span>
+		<span class='st_plusone_large' displayText='Google +1'></span>
+		<span class='st_email_large' displayText='Email'></span>
+		<p>&copy; Treshno Tech, Pte. Ltd. 2012 | <a href="http://google.com">http://tresno.com</a></p>
+	</div>
+</div><!-- // end #fppter -->
+</body>
+</html>

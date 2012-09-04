@@ -25,15 +25,6 @@ var photos = [ {
 	}
 ];
 
-//pause on hover
-//using data attributes
-//$(".live-tile").liveTile({pauseOnHover: true});
-
-//without data-attributes
-//$("#tile1").liveTile({ delay:750, initDelay:750, pauseOnHover: true  });
-//$("#tile2").liveTile({ delay:750, initDelay:750, mode:'flip', pauseOnHover: true });
-
-
 $(document).ready(function() {
 		
 	// Backwards navigation
@@ -141,5 +132,15 @@ $(document).ready(function() {
 	interval = setInterval(function() {
 		navigate("next");
 	}, slideshowSpeed);
+	
+	
+	//pause on hover
+	//using data attributes
+	$(".live-tile").liveTile({pauseOnHover: true});
+	
+	//without data-attributes
+	//$("#tile1").liveTile({ delay:750, initDelay:750, pauseOnHover: true  });
+	//$("#tile2").liveTile({ delay:750, initDelay:750, mode:'flip', pauseOnHover: true });
+
 	
 });

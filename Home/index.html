@@ -6,7 +6,6 @@
 <link rel="stylesheet" type="text/css" href="../content/css/style.css"/>
 <link rel="stylesheet" type="text/css" href="../content/css/style2.css"/>
 <link rel="stylesheet" type="text/css" href="../content/css/metrojs.css"/>
-<link href="../content/css/nivo-slider.css" rel="stylesheet" type="text/css" />
 <link rel="shortcut icon" href="https://a2.muscache.com/airbnb/static/logotype_favicon-6ba9bbe6f8ca077e990ca287d87b10b5.ico">
 <script type="text/javascript" src="../scripts/jquery-1.7.1.min.js"></script>
 <script type="text/javascript" src="../scripts/script.js"></script>
@@ -55,9 +54,10 @@
 <div id="header_top">
 	<div class="container">
 			<h1>
-				<a href="index.html" title="Dilasag"><img src="../content/images/logo.gif" alt="getourguide" /></a></h1>
+				<a href="index.html" title="Getourguide"><img src="../content/images/logo.gif" alt="getourguide" /></a>
+            </h1>
 			<ul class="menu fr">
-			  <li class="active"><a href="index.html" title="Home">Home</a></li>
+			  	<li class="active"><a href="index.html" title="Home">Home</a></li>
 				<li><a href="about.html" title="About">About</a></li>
 				<li><a href="gallery.html" title="Gallery">Gallery</a></li>
 				<li><a href="blog.html" title="Blog">Blog</a></li>
@@ -121,7 +121,7 @@
 </div><!-- // end .intro -->
 <div id="main">
 		<div class="container">
-		  <div id="about" class="clearfix">
+		  	<div id="about" class="clearfix">
 				<div class="column">
 					<h2>Tourist Spots</h2>
 					<div class="image"><img src="../content/images/article/article-thumb-1.jpg" alt="Article Image" /></div>
@@ -137,172 +137,140 @@
 					<div class="image"><img src="../content/images/article/article-thumb-3.jpg" alt="Article Image" /></div>
 					<p>Well-polished handy crafts from various raw materials will give you a totally unique style and design.</p>
 				</div>
-		    <div class="column last">
+		    	<div class="column last">
 					<h2>Adventures</h2>
 					<div class="image"><img src="../content/images/article/article-thumb-4.jpg" alt="Article Image" /></div>
 					<p>Adventures are few steps from the town proper. Surfing, biking and scuba diving are the most exciting adventures you can have in Dilasag.</p>
-			  </div>
-              <div class="tabbed user">
-              	<ul class='tabs'>
-                    <li><a href='#tab1'>New Members</a></li>        
-                    <li><a href='#tab2'>Recommended</a></li>        
-                    <li><a href='#tab3'>Highest Rating</a></li>        
-                </ul>        
-                <div id='tab1'>        
-                    <div class="red">
-                        <div id="tile1" class="live-tile" data-stack="true" data-delay="750" data-initdelay="750">
-                            <span class="tile-title">Anton</span>
-                            <!-- adding the 'full' class to an 'img' or 'a' tag causes it to fill the entire tile -->
-                            <div><a class="full" href="#">Guide 1</a></div>
-                            <div>
-                                <p>Experienced in guiding Singaporean</p>
+			  	</div>
+              	<div class="tabbed user">
+                    <ul class='tabs'>
+                        <li><a href='#tab1'>New Members</a></li>        
+                        <li><a href='#tab2'>Recommended</a></li>        
+                        <li><a href='#tab3'>Highest Rating</a></li>        
+                    </ul>        
+                	<div id='tab1'>        
+                        <div class="red">
+                            <div id="tile1" class="live-tile" data-stack="true" data-delay="-1" data-initdelay="-1">
+                                <span class="tile-title">Anton R Susilo</span>
+                                <!-- adding the 'full' class to an 'img' or 'a' tag causes it to fill the entire tile -->
+                                <div><img class="full" src="../Content/images/photo/anton.jpg"/></div>
+                                <div>
+                                    <p>I like Scuba Diving and sea entertainment a lot! <br/><br/>Hire me to get to the best spots for Scuba diving in Indonesia.</p>
+                                </div>
+                            </div>
+                            <div id="tile2" class="live-tile blue" data-delay="-1" data-initdelay="-1" data-mode="flip">    
+                                <span class="tile-title">Budi R Santoso</span>
+                                <div><img class="full" src="../Content/images/photo/budi.jpg"/></div>
+                                <div>
+                                    <p class="full">I'm the best at culinary travel. <br/><br/>Enjoy a rare traditional Malay culinary while having a nice backpacking time.</p>
+                                </div>
+                            </div>
+                            <div id="tile3" class="live-tile blue" data-delay="-1" data-initdelay="-1" data-mode="flip">    
+                                <span class="tile-title">Habibi Alkaff</span>
+                                <div><img class="full" src="../Content/images/photo/habibi.jpg"/></div>
+                                <div>
+                                    <p class="full">I like to do travelling to the village and enjoy the best from nature. <br/><br/> I can give you special price to go around the urban area of Malaysia</p>
+                                </div>
+                            </div>
+                            <div id="tile4" class="live-tile blue" data-delay="-1" data-initdelay="-1" data-mode="flip">    
+                                <span class="tile-title">Kopral Joni</span>
+                                <div><img class="full" src="../Content/images/photo/kopraljoni.jpg"/></div>
+                                <div>
+                                    <p class="full">Back to nature! Let's have a tour to urban area of Vietnam<br/><br/>It's great</p>
+                                </div>
+                            </div>
+                            <div id="tile5" class="live-tile blue" data-delay="-1" data-initdelay="-1" data-mode="flip">    
+                                <span class="tile-title">Muhamad Arif</span>
+                                <div><img class="full" src="../Content/images/photo/arif.jpg"/></div>
+                                <div>
+                                    <p class="full">Travel to Australia! <br/><br/>Australia offers a good combination of city tour and nature trekking</p>
+                                </div>
+                            </div>
+                        </div>    
+                	</div>        
+                    <div id='tab2'>        
+                        <div class="red">
+                            <div id="tile1" class="live-tile" data-stack="true" data-delay="-1" data-initdelay="-1">
+                                <span class="tile-title">Budi R Santoso</span>
+                                <div><img class="full" src="../Content/images/photo/budi.jpg"/></div>
+                                <div>
+                                    <p class="full">I'm the best at culinary travel. <br/><br/>Enjoy a rare traditional Malay culinary while having a nice backpacking time.</p>
+                                </div>
+                            </div>
+                            <div id="tile3" class="live-tile blue" data-delay="-1" data-initdelay="-1" data-mode="flip">    
+                                <span class="tile-title">Habibi Alkaff</span>
+                                <div><img class="full" src="../Content/images/photo/habibi.jpg"/></div>
+                                <div>
+                                    <p class="full">I like to do travelling to the village and enjoy the best from nature. <br/><br/> I can give you special price to go around the urban area of Malaysia</p>
+                                </div>
+                            </div>
+                            <div id="tile2" class="live-tile blue" data-delay="-1" data-initdelay="-1" data-mode="flip">    
+                                <span class="tile-title">Anton R Susilo</span>
+                                <!-- adding the 'full' class to an 'img' or 'a' tag causes it to fill the entire tile -->
+                                <div><img class="full" src="../Content/images/photo/anton.jpg"/></div>
+                                <div>
+                                    <p>I like Scuba Diving and sea entertainment a lot! <br/><br/>Hire me to get to the best spots for Scuba diving in Indonesia.</p>
+                                </div>
+                            </div>
+                            <div id="tile5" class="live-tile blue" data-delay="-1" data-initdelay="-1" data-mode="flip">    
+                                <span class="tile-title">Muhamad Arif</span>
+                                <div><img class="full" src="../Content/images/photo/arif.jpg"/></div>
+                                <div>
+                                    <p class="full">Travel to Australia! <br/><br/>Australia offers a good combination of city tour and nature trekking</p>
+                                </div>
+                            </div>
+                            <div id="tile4" class="live-tile blue" data-delay="-1" data-initdelay="-1" data-mode="flip">    
+                                <span class="tile-title">Kopral Joni</span>
+                                <div><img class="full" src="../Content/images/photo/kopraljoni.jpg"/></div>
+                                <div>
+                                    <p class="full">Back to nature! Let's have a tour to urban area of Vietnam<br/><br/>It's great</p>
+                                </div>
                             </div>
                         </div>
-                        <div id="tile2" class="live-tile blue" data-delay="750" data-initdelay="750" data-mode="flip">    
-                            <div>front
-                               <span class="tile-title">Budi</span>
+                    </div>        
+                    <div id='tab3'>        
+                        <div class="red">
+                            <div id="tile1" class="live-tile" data-stack="true" data-delay="-1" data-initdelay="-1">
+                                <span class="tile-title">Habibi Alkaff</span>
+                                <div><img class="full" src="../Content/images/photo/habibi.jpg"/></div>
+                                <div>
+                                    <p class="full">I like to do travelling to the village and enjoy the best from nature. <br/><br/> I can give you special price to go around the urban area of Malaysia</p>
+                                </div>
                             </div>
-                            <div>
-                                <p class="full">Experienced in guiding Indonesian
-                                <span class="tile-title">Budi</span>
-                                </p>
+                            <div id="tile4" class="live-tile blue" data-delay="-1" data-initdelay="-1" data-mode="flip">    
+                                <span class="tile-title">Kopral Joni</span>
+                                <div><img class="full" src="../Content/images/photo/kopraljoni.jpg"/></div>
+                                <div>
+                                    <p class="full">Back to nature! Let's have a tour to urban area of Vietnam<br/><br/>It's great</p>
+                                </div>
                             </div>
-                        </div>
-                        <div id="tile3" class="live-tile blue" data-delay="750" data-initdelay="750" data-mode="flip">    
-                            <div>front
-                               <span class="tile-title">Habibi</span>
+                            <div id="tile2" class="live-tile blue" data-delay="-1" data-initdelay="-1" data-mode="flip">    
+                                <span class="tile-title">Budi R Santoso</span>
+                                <div><img class="full" src="../Content/images/photo/budi.jpg"/></div>
+                                <div>
+                                    <p class="full">I'm the best at culinary travel. <br/><br/>Enjoy a rare traditional Malay culinary while having a nice backpacking time.</p>
+                                </div>
                             </div>
-                            <div>
-                                <p class="full">Experienced in guiding Vietnamese
-                                <span class="tile-title">Habibi</span>
-                                </p>
+                            <div id="tile3" class="live-tile blue" data-delay="-1" data-initdelay="-1" data-mode="flip">    
+                                <span class="tile-title">Anton R Susilo</span>
+                                <!-- adding the 'full' class to an 'img' or 'a' tag causes it to fill the entire tile -->
+                                <div><img class="full" src="../Content/images/photo/anton.jpg"/></div>
+                                <div>
+                                    <p>I like Scuba Diving and sea entertainment a lot! <br/><br/>Hire me to get to the best spots for Scuba diving in Indonesia.</p>
+                                </div>
                             </div>
-                        </div>
-                        <div id="tile4" class="live-tile blue" data-delay="750" data-initdelay="750" data-mode="flip">    
-                            <div>front
-                               <span class="tile-title">Ari</span>
-                            </div>
-                            <div>
-                                <p class="full">Experienced in guiding Japanese
-                                <span class="tile-title">Ari</span>
-                                </p>
-                            </div>
-                        </div>
-                        <div id="tile5" class="live-tile blue" data-delay="750" data-initdelay="750" data-mode="flip">    
-                            <div>front
-                               <span class="tile-title">Arif</span>
-                            </div>
-                            <div>
-                                <p class="full">Experienced in guiding Arab
-                                <span class="tile-title">Arif</span>
-                                </p>
-                            </div>
-                        </div>
-                    </div>      
-                </div>        
-                <div id='tab2'>        
-                    <div id="tile1" class="live-tile" data-stack="true" data-delay="750" data-initdelay="750">
-                            <span class="tile-title">Anton</span>
-                            <!-- adding the 'full' class to an 'img' or 'a' tag causes it to fill the entire tile -->
-                            <div><a class="full" href="#">Guide 1</a></div>
-                            <div>
-                                <p>Experienced in guiding Singaporean</p>
+                            <div id="tile5" class="live-tile blue" data-delay="-1" data-initdelay="-1" data-mode="flip">    
+                                <span class="tile-title">Muhamad Arif</span>
+                                <div><img class="full" src="../Content/images/photo/arif.jpg"/></div>
+                                <div>
+                                    <p class="full">Travel to Australia! <br/><br/>Australia offers a good combination of city tour and nature trekking</p>
+                                </div>
                             </div>
                         </div>
-                        <div id="tile2" class="live-tile blue" data-delay="750" data-initdelay="750" data-mode="flip">    
-                            <div>front
-                               <span class="tile-title">Budi</span>
-                            </div>
-                            <div>
-                                <p class="full">Experienced in guiding Indonesian
-                                <span class="tile-title">Budi</span>
-                                </p>
-                            </div>
-                        </div>
-                        <div id="tile3" class="live-tile blue" data-delay="750" data-initdelay="750" data-mode="flip">    
-                            <div>front
-                               <span class="tile-title">Habibi</span>
-                            </div>
-                            <div>
-                                <p class="full">Experienced in guiding Vietnamese
-                                <span class="tile-title">Habibi</span>
-                                </p>
-                            </div>
-                        </div>
-                        <div id="tile4" class="live-tile blue" data-delay="750" data-initdelay="750" data-mode="flip">    
-                            <div>front
-                               <span class="tile-title">Ari</span>
-                            </div>
-                            <div>
-                                <p class="full">Experienced in guiding Japanese
-                                <span class="tile-title">Ari</span>
-                                </p>
-                            </div>
-                        </div>
-                        <div id="tile5" class="live-tile blue" data-delay="750" data-initdelay="750" data-mode="flip">    
-                            <div>front
-                               <span class="tile-title">Arif</span>
-                            </div>
-                            <div>
-                                <p class="full">Experienced in guiding Arab
-                                <span class="tile-title">Arif</span>
-                                </p>
-                            </div>
-                        </div>   
-                </div>        
-                <div id='tab3'>        
-                    <div id="tile1" class="live-tile" data-stack="true" data-delay="750" data-initdelay="750">
-                            <span class="tile-title">Anton</span>
-                            <!-- adding the 'full' class to an 'img' or 'a' tag causes it to fill the entire tile -->
-                            <div><a class="full" href="#">Guide 1</a></div>
-                            <div>
-                                <p>Experienced in guiding Singaporean</p>
-                            </div>
-                        </div>
-                        <div id="tile2" class="live-tile blue" data-delay="750" data-initdelay="750" data-mode="flip">    
-                            <div>front
-                               <span class="tile-title">Budi</span>
-                            </div>
-                            <div>
-                                <p class="full">Experienced in guiding Indonesian
-                                <span class="tile-title">Budi</span>
-                                </p>
-                            </div>
-                        </div>
-                        <div id="tile3" class="live-tile blue" data-delay="750" data-initdelay="750" data-mode="flip">    
-                            <div>front
-                               <span class="tile-title">Habibi</span>
-                            </div>
-                            <div>
-                                <p class="full">Experienced in guiding Vietnamese
-                                <span class="tile-title">Habibi</span>
-                                </p>
-                            </div>
-                        </div>
-                        <div id="tile4" class="live-tile blue" data-delay="750" data-initdelay="750" data-mode="flip">    
-                            <div>front
-                               <span class="tile-title">Ari</span>
-                            </div>
-                            <div>
-                                <p class="full">Experienced in guiding Japanese
-                                <span class="tile-title">Ari</span>
-                                </p>
-                            </div>
-                        </div>
-                        <div id="tile5" class="live-tile blue" data-delay="750" data-initdelay="750" data-mode="flip">    
-                            <div>front
-                               <span class="tile-title">Arif</span>
-                            </div>
-                            <div>
-                                <p class="full">Experienced in guiding Arab
-                                <span class="tile-title">Arif</span>
-                                </p>
-                            </div>
-                        </div>
-           	  </div>
-		  </div><!-- // end #articles -->
-	  </div>
-		<div class="push"></div>
+                    </div>
+            	</div>
+		  	</div><!-- // end #articles -->
+	  	</div>
 </div><!-- // end #main -->
 
 
