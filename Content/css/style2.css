@@ -34,7 +34,6 @@ p { margin: 0 0 15px 0; }
 a { color: #70a3b4; text-decoration: none; }
 a:hover { text-decoration: underline; }
 
-
 .container { margin: 0px auto; width: 960px; }
 
 
@@ -67,6 +66,54 @@ ul.menu li a:hover, ul.menu li.active a { color: #70a3b4; text-decoration: none;
 #about .column.last { margin-right: 0px; }
 #about .column .image { background: #cccccc; height: 120px; margin-bottom: 15px; width: 200px; -moz-box-shadow: 0 0 5px #888; -webkit-box-shadow: 0 0 5px#888; box-shadow: 0 0 5px #888; }
 #about .column h2 { color: #000000; font-family: Georgia, Serif; font-size: 16px; }
+
+/* 'widths' sub menu */
+#layoutdims {
+	clear:both;
+	background:#eee;
+	border-top:4px solid #000;
+	margin:0;
+	padding:6px 15px !important;
+	text-align:right;
+}
+/* column container */
+.advsearch {
+	position:relative;	/* This fixes the IE7 overflow hidden bug */
+	clear:both;
+	float:left;
+	width:100%;			/* width of whole page */
+	overflow:hidden;		/* This chops off any overhanging divs */
+}
+/* common column settings */
+.colleft {
+	float:left;
+	width:100%;
+	position:relative;
+}
+.col1,
+.col2 {
+	float:left;
+	position:relative;
+	margin:10px 10px 10px 10px;
+	padding:0 0 1em 0;
+	overflow:hidden;
+}
+/* 2 Column (left menu) settings */
+.leftmenu {
+	background:#fff;		/* right column background colour */
+}
+.leftmenu .colleft {
+	right:75%;			/* right column width */
+	background:#f4f4f4;	/* left column background colour */
+}
+.leftmenu .col1 {
+	width:71%;			/* right column content width */
+	left:102%;			/* 100% plus left column left padding */
+}
+.leftmenu .col2 {
+	width:21%;			/* left column content width (column width minus left and right padding) */
+	left:6%;			/* (right column left and right padding) plus (left column left padding) */
+}
 
 /*** Footer ***/
 #footer { background: #e4e4e4; border-top: 1px solid #d9d9d9;  }
