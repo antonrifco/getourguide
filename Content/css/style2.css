@@ -90,7 +90,7 @@ ul.menu li a:hover, ul.menu li.active a { color: #70a3b4; text-decoration: none;
 	width:100%;
 	position:relative;
 }
-.col1,
+.result_container,
 .col2 {
 	float:left;
 	position:relative;
@@ -98,6 +98,7 @@ ul.menu li a:hover, ul.menu li.active a { color: #70a3b4; text-decoration: none;
 	padding:0 0 1em 0;
 	overflow:hidden;
 }
+.result_container {overflow:scroll; height:700px;}
 /* 2 Column (left menu) settings */
 .leftmenu {
 	background:#fff;		/* right column background colour */
@@ -106,7 +107,7 @@ ul.menu li a:hover, ul.menu li.active a { color: #70a3b4; text-decoration: none;
 	right:75%;			/* right column width */
 	background:#f4f4f4;	/* left column background colour */
 }
-.leftmenu .col1 {
+.leftmenu .result_container {
 	width:71%;			/* right column content width */
 	left:102%;			/* 100% plus left column left padding */
 }
@@ -179,3 +180,16 @@ ul.menu li a:hover, ul.menu li.active a { color: #70a3b4; text-decoration: none;
 
 .tabbed .user div {	padding:10px;	width:600px;	background:#fff;	}
 
+.big_sentence h1 { font-size: 19px; font-weight: normal; margin-bottom: 0px; color:#265293; }
+
+.result_line { padding:10px; margin-right:20px; margin-bottom: 5px; margin-top:5px; border-width: 2px; border-style: dotted; }
+
+.result_img {float:left; margin-right: 10px; border:1px black solid; padding: 2px; background:#666; }
+
+.clear {clear:both;}
+
+.result_header h1 { font-size: 30px; font-weight: bold; color:#933; font-style:italic; margin-bottom:15px}
+
+.result_body h2 { font-size: 25px; font-weight: normal; color:#666; margin-bottom:5px}
+
+.result_body p { color:#333 }
