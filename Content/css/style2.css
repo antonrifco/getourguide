@@ -203,5 +203,10 @@ ul.menu li a:hover, ul.menu li.active a { color: #70a3b4; text-decoration: none;
 
 .result_container h2 { font-size:20px; margin:5px; letter-spacing:2px; line-height:20px;}
 
-.blog_container h1{ font-size:20px; margin:5px; letter-spacing:2px; line-height:20px;}
-.blog_container p{ font-size:12px;}
+#blog_article {border-width: 2px; border-style: dotted; margin-top:15px; margin-bottom:15px; padding:10px}
+#blog_article h1{ font-size:30px; font-weight:bold; letter-spacing:2px; line-height:20px; }
+#blog_article h3{ font-size:12px; font-style:italic; letter-spacing:1px; }
+#blog_article p{ font-size:13px; margin:5px; padding:5px; line-height:18px;}
+#blog_article img{ margin:5px; padding:5px; }
+.blog_menu_header{ font-size:30px; font-weight:bold; letter-spacing:8px; text-align:left; margin:5px; padding:5px; }
+#blog_menu_item{ letter-spacing:2px; margin:5px; padding:5px; text-align:right; }
