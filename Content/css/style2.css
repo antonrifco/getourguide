@@ -90,6 +90,7 @@ ul.menu li a:hover, ul.menu li.active a { color: #70a3b4; text-decoration: none;
 	width:100%;
 	position:relative;
 }
+.blog_container,
 .result_container,
 .col2 {
 	float:left;
@@ -98,7 +99,7 @@ ul.menu li a:hover, ul.menu li.active a { color: #70a3b4; text-decoration: none;
 	padding:0 0 1em 0;
 	overflow:hidden;
 }
-.result_container {overflow:scroll; height:700px;}
+.blog_container, .result_container {overflow:scroll; height:700px;}
 /* 2 Column (left menu) settings */
 .leftmenu {
 	background:#fff;		/* right column background colour */
@@ -107,7 +108,7 @@ ul.menu li a:hover, ul.menu li.active a { color: #70a3b4; text-decoration: none;
 	right:75%;			/* right column width */
 	background:#f4f4f4;	/* left column background colour */
 }
-.leftmenu .result_container {
+.leftmenu .result_container, .leftmenu .blog_container {
 	width:71%;			/* right column content width */
 	left:102%;			/* 100% plus left column left padding */
 }
@@ -200,4 +201,7 @@ ul.menu li a:hover, ul.menu li.active a { color: #70a3b4; text-decoration: none;
 
 .payment_total h1 { font-size:35px; color:#900; margin:10px; padding:25px; letter-spacing:3px; font-family:"Comic Sans MS", cursive}
 
-.result_container h2 { font-size:20px; margin:5px; letter-spacing:1.5px; line-height:20px; text-align:justify}
+.result_container h2 { font-size:20px; margin:5px; letter-spacing:2px; line-height:20px;}
+
+.blog_container h1{ font-size:20px; margin:5px; letter-spacing:2px; line-height:20px;}
+.blog_container p{ font-size:12px;}
