@@ -1,0 +1,63 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>
+	<title>Administrator Page</title>
+	<link rel="stylesheet" type="text/css" href="../Content/css/adminpage.css" media="screen" />
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.0/themes/base/jquery-ui.css" />
+    <script src="http://code.jquery.com/jquery-1.8.2.js"></script>
+    <script src="http://code.jquery.com/ui/1.9.0/jquery-ui.js"></script>
+	<script> $(function() { $( "#tabs" ).tabs();}); </script>               
+</head>
+<body>
+<div id="header">
+  <h1><a href="index.html" title="Getourguide"><img src="../Content/images/logo.gif" alt="getourguide" /></a></h1>
+</div>
+
+<div class="coltab">
+
+		<div class="col1">
+   		  <div id="tabs">
+            <ul>
+              <li><a href="#tabs-1">Languages</a></li>
+              <li><a href="#tabs-2">Cities</a></li>
+              <li><a href="#tabs-3">Hobbies</a></li>
+            </ul>
+            <div id="tabs-1">
+                <select id="steps_number">
+                      <option >English</option>
+                      <option >Indonesia</option>
+                      <option >China</option>
+                    </select>
+                    Language: <input type="text" name="Languages" value="">
+                    <input type="submit" value="Submit">
+                <input type="submit" value="Delete">
+                <p>Table of language available</p>
+            </div>
+            <div id="tabs-2">
+                <select id="steps_number">
+                      <option >Bali</option>
+                      <option >Jakarta</option>
+                      <option >Singapore</option>
+                </select>
+                Cities: <input type="text" name="Cities" value="">
+                <input type="submit" value="Submit">
+                <input type="submit" value="Delete">
+                <p>Table of Cities available</p>
+            </div>
+            <div id="tabs-3">
+                <select id="steps_number">
+                      <option >Travelling</option>
+                      <option >Photography</option>
+                      <option >Eating</option>
+                </select>
+                Cities: <input type="text" name="Foods" value="">
+                <input type="submit" value="Submit">
+                <input type="submit" value="Delete">
+                <p>Table of Hobbies available</p>
+            </div>
+   		  </div><!--tabs-->
+		</div><!--col1-->   
+</div> <!--coltab-->
+
+</body>
+</html>
