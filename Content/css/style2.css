@@ -193,3 +193,11 @@ ul.menu li a:hover, ul.menu li.active a { color: #70a3b4; text-decoration: none;
 .result_body h2 { font-size: 25px; font-weight: normal; color:#666; margin-bottom:5px}
 
 .result_body p { color:#333 }
+
+.secured_seal img{ padding:10px; margin:10px;}
+
+.secured_seal h1 { font-size: 30px; font-weight: bold; color:#933; margin-bottom:15px; margin-top:15px}
+
+.payment_total h1 { font-size:35px; color:#900; margin:10px; padding:25px; letter-spacing:3px; font-family:"Comic Sans MS", cursive}
+
+.result_container h2 { font-size:20px; margin:5px; letter-spacing:1.5px; line-height:20px; text-align:justify}
