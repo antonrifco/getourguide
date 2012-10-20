@@ -91,6 +91,7 @@ ul.menu li a:hover, ul.menu li.active a { color: #70a3b4; text-decoration: none;
 	position:relative;
 }
 .blog_container,
+.profile_container,
 .result_container,
 .col2 {
 	float:left;
@@ -99,7 +100,7 @@ ul.menu li a:hover, ul.menu li.active a { color: #70a3b4; text-decoration: none;
 	padding:0 0 1em 0;
 	overflow:hidden;
 }
-.blog_container, .result_container {overflow:scroll; height:700px;}
+.profile_container, .blog_container, .result_container {overflow:scroll; height:700px;}
 /* 2 Column (left menu) settings */
 .leftmenu {
 	background:#fff;		/* right column background colour */
@@ -108,7 +109,7 @@ ul.menu li a:hover, ul.menu li.active a { color: #70a3b4; text-decoration: none;
 	right:75%;			/* right column width */
 	background:#f4f4f4;	/* left column background colour */
 }
-.leftmenu .result_container, .leftmenu .blog_container {
+.leftmenu .result_container, .leftmenu .blog_container, .profile_container {
 	width:71%;			/* right column content width */
 	left:102%;			/* 100% plus left column left padding */
 }
@@ -210,3 +211,27 @@ ul.menu li a:hover, ul.menu li.active a { color: #70a3b4; text-decoration: none;
 #blog_article img{ margin:5px; padding:5px; }
 .blog_menu_header{ font-size:30px; font-weight:bold; letter-spacing:8px; text-align:left; margin:5px; padding:5px; }
 #blog_menu_item{ letter-spacing:2px; margin:5px; padding:5px; text-align:right; }
+
+.profile_menu_header{ font-size:25px; font-weight:bold; letter-spacing:5px; text-align:left; margin:2px; padding:3px; }
+.profile_image{ width:250px; height:250px}
+.profile_image img
+{
+	display:block;
+	border:ridge;
+	margin:5px;
+	height:100%;
+	width:100%;    
+}
+
+#profile_information {border-width: 2px; border-style: dotted; margin-top:0px; margin-bottom:15px; padding:10px; line-height:20px;}
+.member_since{text-align:right; font-family:"Comic Sans MS", cursive; font-size:20px; color:#663}
+.profile_information_header{background:#C99; height:25px; padding:5px; font-weight:bold; font-size:18px; letter-spacing:2px;}
+
+
+.review_line { padding:2px; margin-right:20px; margin-bottom: 5px; margin-top:5px; border-width: 1px; border-style:groove; }
+
+.review_img {float:left; margin-right: 10px; border:1px black solid; padding: 2px; background:#666; width:50px; height:50px }
+
+.review_header h1 { font-size: 15px; font-weight: bold; color:#933; font-style:italic; margin-bottom:2px}
+
+.review_body p { color:#333; font-size:12px; font-style:italic;}
