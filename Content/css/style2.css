@@ -58,8 +58,22 @@ ul.menu li a:hover, ul.menu li.active a { color: #70a3b4; text-decoration: none;
 #slideshow .nivo-controlNav .nivo-control.active { background: url(../images/bullets.png) no-repeat scroll 0 -22px; }
 
 
-.intro { margin: 0px 0px 50px; width: auto;  background: #cccccc; height:50px}
-.intro p { margin: 0px 0px 0px 50px; font-size: 25px; font-weigh: bold; text-align: center;}
+.intro { padding-bottom:5px; padding-top:10px; margin: 0px 0px 50px; width: auto;  background: #cccccc; height:30px; background-image: linear-gradient(bottom, rgb(71,70,71) 29%, rgb(61,61,58) 79%, rgb(77,73,77) 54%);
+background-image: -o-linear-gradient(bottom, rgb(71,70,71) 29%, rgb(61,61,58) 79%, rgb(77,73,77) 54%);
+background-image: -moz-linear-gradient(bottom, rgb(71,70,71) 29%, rgb(61,61,58) 79%, rgb(77,73,77) 54%);
+background-image: -webkit-linear-gradient(bottom, rgb(71,70,71) 29%, rgb(61,61,58) 79%, rgb(77,73,77) 54%);
+background-image: -ms-linear-gradient(bottom, rgb(71,70,71) 29%, rgb(61,61,58) 79%, rgb(77,73,77) 54%);
+
+background-image: -webkit-gradient(
+	linear,
+	left bottom,
+	left top,
+	color-stop(0.29, rgb(71,70,71)),
+	color-stop(0.79, rgb(61,61,58)),
+	color-stop(0.54, rgb(77,73,77))
+);
+}
+.intro p { margin: 0px 0px 50px 50px; font-size: 20px; letter-spacing:7px; color:#FFF; font-weigh: bold; text-align: center;}
 
 #about { margin: 0px 10px 30px; }
 #about .column { float: left; margin-right: 40px; width: 200px; }
@@ -236,4 +250,4 @@ ul.menu li a:hover, ul.menu li.active a { color: #70a3b4; text-decoration: none;
 
 .review_body p { color:#333; font-size:12px; font-style:italic;}
 
-.registration h1 { font-size: 25px; font-weight: bold; color:#933; letter-spacing:3px; margin-bottom:15px; margin-top:15px}
+.registration h1 { font-size: 30px; font-weight: bold; color:#933; letter-spacing:5px; margin-bottom:15px; margin-top:15px}
