@@ -217,7 +217,7 @@ ul.menu li a:hover, ul.menu li.active a { color: #70a3b4; text-decoration: none;
 .profile_image img
 {
 	display:block;
-	border:ridge;
+	border:dashed;
 	margin:5px;
 	height:100%;
 	width:100%;    
@@ -235,3 +235,5 @@ ul.menu li a:hover, ul.menu li.active a { color: #70a3b4; text-decoration: none;
 .review_header h1 { font-size: 15px; font-weight: bold; color:#933; font-style:italic; margin-bottom:2px}
 
 .review_body p { color:#333; font-size:12px; font-style:italic;}
+
+.registration h1 { font-size: 25px; font-weight: bold; color:#933; letter-spacing:3px; margin-bottom:15px; margin-top:15px}
