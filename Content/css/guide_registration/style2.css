@@ -1,0 +1,253 @@
+/*
+Theme Name: Dilasag
+Description: Free html and css light colored template
+Version: 1 
+*/
+
+/*** Reset ***/
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td { background: transparent; border: 0; font-size: 100%; margin: 0; outline: 0; padding: 0; vertical-align: baseline; }
+ol,ul { list-style: none; }
+blockquote,q { quotes: none; }
+blockquote:before,blockquote:after,q:before,q:after { content: ''; content: none; }
+:focus { outline: 0; }
+img { vertical-align: bottom; }
+ins { text-decoration: none; }
+del { text-decoration: line-through; }
+table { border-collapse: collapse; border-spacing: 0; }
+
+/*** Clearfix ***/
+.clearfix:after { visibility: hidden; display: block; font-size: 0; content: "."; clear: both; height: 0; }
+.clear { clear: both; }
+
+/*** Positioning and Alignment ***/
+.fl { float: left; }
+.fr { float: right; }
+.txt-left { text-align: left; }
+.txt-right { text-align: right; }
+.txt-center { text-align: center; }
+
+/*** General Settings ***/
+html, body { height: 100%; }
+body { background: #f0f0f0; color: #5f5f5f; font-family: Arial, Helvetica, sans-serif; font-size: 14px; }
+h1,h2,h3,h4,h5,h6 { font-weight: normal; margin-bottom: 15px; }
+p { margin: 0 0 15px 0; }
+a { color: #70a3b4; text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+.container { margin: 0px auto; width: 960px; }
+
+
+
+/*** Header ***/
+#header_top { background: #e4e4e4; border-bottom: 1px solid #d9d9d9; border-top: 5px solid #cccccc; height: 60px; }
+#header_top h1 { float: left; margin: 0px 0px 0px; }
+#header_top h1 a { color: #5f5f5f; font-family: Century Gothic, sans-serif; font-size: 22px; font-weight: bold; text-decoration: none; }
+
+ul.menu { margin: 28px 0px 0px; }
+ul.menu li { float: left; margin: 0px 0px 0px 25px; }
+ul.menu li a { color: #5f5f5f; font-family: Georgia, Serif; font-size: 14px; }
+ul.menu li a:hover, ul.menu li.active a { color: #70a3b4; text-decoration: none; }
+
+/*** Main ***/
+#main { padding: 0px 0px 40px; }
+
+/*** Slideshow ***/
+#slideshow { background: #cccccc; height: 380px!important; margin: 0px 10px 50px; position: relative; width: 940px; -moz-box-shadow: 0 0 5px #888; -webkit-box-shadow: 0 0 5px#888; box-shadow: 0 0 5px #888; }
+#slideshow .nivo-controlNav { bottom: -40px; left: 50%; margin-left: -30px; position: absolute;  }
+#slideshow .nivo-controlNav .nivo-control { background: url(../images/bullets.png) no-repeat; display: block; float: left; height: 20px; text-indent: -9999px; width: 22px; }
+#slideshow .nivo-controlNav .nivo-control.active { background: url(../images/bullets.png) no-repeat scroll 0 -22px; }
+
+
+.intro { padding-bottom:5px; padding-top:10px; margin: 0px 0px 50px; width: auto;  background: #cccccc; height:30px; background-image: linear-gradient(bottom, rgb(71,70,71) 29%, rgb(61,61,58) 79%, rgb(77,73,77) 54%);
+background-image: -o-linear-gradient(bottom, rgb(71,70,71) 29%, rgb(61,61,58) 79%, rgb(77,73,77) 54%);
+background-image: -moz-linear-gradient(bottom, rgb(71,70,71) 29%, rgb(61,61,58) 79%, rgb(77,73,77) 54%);
+background-image: -webkit-linear-gradient(bottom, rgb(71,70,71) 29%, rgb(61,61,58) 79%, rgb(77,73,77) 54%);
+background-image: -ms-linear-gradient(bottom, rgb(71,70,71) 29%, rgb(61,61,58) 79%, rgb(77,73,77) 54%);
+
+background-image: -webkit-gradient(
+	linear,
+	left bottom,
+	left top,
+	color-stop(0.29, rgb(71,70,71)),
+	color-stop(0.79, rgb(61,61,58)),
+	color-stop(0.54, rgb(77,73,77))
+);
+}
+.intro p { margin: 0px 0px 50px 50px; font-size: 20px; letter-spacing:7px; color:#FFF; font-weigh: bold; text-align: center;}
+
+#about { margin: 0px 10px 30px; }
+#about .column { float: left; margin-right: 40px; width: 200px; }
+#about .column.last { margin-right: 0px; }
+#about .column .image { background: #cccccc; height: 120px; margin-bottom: 15px; width: 200px; -moz-box-shadow: 0 0 5px #888; -webkit-box-shadow: 0 0 5px#888; box-shadow: 0 0 5px #888; }
+#about .column h2 { color: #000000; font-family: Georgia, Serif; font-size: 16px; }
+
+/* 'widths' sub menu */
+#layoutdims {
+	clear:both;
+	background:#eee;
+	border-top:4px solid #000;
+	margin:0;
+	padding:6px 15px !important;
+	text-align:right;
+}
+/* column container */
+.advsearch {
+	position:relative;	/* This fixes the IE7 overflow hidden bug */
+	clear:both;
+	float:left;
+	width:100%;			/* width of whole page */
+	overflow:hidden;		/* This chops off any overhanging divs */
+}
+/* common column settings */
+.colleft {
+	float:left;
+	width:100%;
+	position:relative;
+}
+.blog_container,
+.profile_container,
+.result_container,
+.col2 {
+	float:left;
+	position:relative;
+	margin:10px 10px 10px 10px;
+	padding:0 0 1em 0;
+	overflow:hidden;
+}
+.profile_container, .blog_container, .result_container {overflow:scroll; height:700px;}
+/* 2 Column (left menu) settings */
+.leftmenu {
+	background:#fff;		/* right column background colour */
+}
+.leftmenu .colleft {
+	right:75%;			/* right column width */
+	background:#f4f4f4;	/* left column background colour */
+}
+.leftmenu .result_container, .leftmenu .blog_container, .profile_container {
+	width:71%;			/* right column content width */
+	left:102%;			/* 100% plus left column left padding */
+}
+.leftmenu .col2 {
+	width:21%;			/* left column content width (column width minus left and right padding) */
+	left:6%;			/* (right column left and right padding) plus (left column left padding) */
+}
+
+/*** Footer ***/
+#footer { background: #e4e4e4; border-top: 1px solid #d9d9d9;  }
+#footer .container { height: 60px; overflow: hidden; }
+#footer, .pust { height: 60px; }
+#footer p { float: right; font-size: 12px; margin: 15px 0px 0px; }
+#footer ul.menu { margin-top: 15px; }
+#footer ul.menu li { margin: 0px 25px 0px 0px; }
+
+/*** Content ***/
+.content {  }
+.content h1 { font-family: Georgia, Serif; font-size: 26px; }
+.content h2 { font-family: Georgia, Serif; font-size: 20px; }
+.content h3 { font-family: Georgia, Serif; font-size: 16px; }
+.content ul { line-height: 22px; list-style: disc; margin-bottom: 15px; padding-left: 45px; }
+.content ol { line-height: 22px; list-style: decimal; margin-bottom: 15px; padding-left: 45px; }
+.content p { line-height: 22px; margin: 0 0 15px 0; }
+.content .image { border: 5px solid #ffffff; }
+.content .image.fl { margin: 0px 20px 15px 0px; }
+.content .image.fr { margin: 0px 0px 15px 20px; }
+
+#content { float: left; width: 660px; }
+#sidebar { float: right; width: 200px; }
+
+
+/*** Gallery ***/
+#gallery {  }
+#gallery .item { background: #cccccc; border: 5px solid #ffffff; float: left; height: 180px; margin: 0px 20px 40px 20px; width: 180px; }
+
+/*** Blog ***/
+#blog {}
+#blog .post { margin-bottom: 20px; overflow: hidden; }
+#blog .post h2 { margin-bottom: 0px; }
+#blog .post .date { border-bottom: 1px solid #ccc; font-size: 12px; margin-bottom: 10px; padding-bottom: 10px; }
+
+
+/*** Widget ***/
+.widget { margin-bottom: 25px; }
+.widget h3 { border-bottom: 1px solid #ccc; font-family: Georgia,Serif; font-size: 18px; margin-bottom: 10px; padding-bottom: 10px; }
+
+.widget .search {  }
+.widget .search .input-txt { height: 14px; padding: 5px; }
+.widget .search .input-btn { cursor: pointer; height: 28px; padding: 0px; width: 40px; }
+
+
+.widget .menu { list-style: square; margin: 0px; }
+.widget .menu li { float: none; line-height: 20px; }
+
+/*** Contact ***/
+#contact-form { float: left; margin-right: 30px; width: 500px; }
+#contact-form p { margin-bottom: 20px; overflow: hidden; }
+#contact-form label { float: left; width: 100px; }
+#contact-form .input-txt { height: 20px; width: 200px; }
+#contact-form .input-btn { margin-left: 100px; }
+
+#contact-map { float: left; width: 300px; }
+
+.tabs li {	list-style:none; display:inline; }
+
+.tabs a {	padding:5px 10px;	display:inline-block;	background:#666;	color:#fff;	text-decoration:none;}
+
+.tabs a.active {	background:#abc; 	color:#000;	}
+
+.tabbed .user div {	padding:10px;	width:600px;	background:#fff;	}
+
+.big_sentence h1 { font-size: 19px; font-weight: normal; margin-bottom: 0px; color:#265293; }
+
+.result_line { padding:10px; margin-right:20px; margin-bottom: 5px; margin-top:5px; border-width: 2px; border-style: dotted; }
+
+.result_img {float:left; margin-right: 10px; border:1px black solid; padding: 2px; background:#666; }
+
+.clear {clear:both;}
+
+.result_header h1 { font-size: 30px; font-weight: bold; color:#933; font-style:italic; margin-bottom:15px}
+
+.result_body h2 { font-size: 25px; font-weight: normal; color:#666; margin-bottom:5px}
+
+.result_body p { color:#333 }
+
+.secured_seal img{ padding:10px; margin:10px;}
+
+.secured_seal h1 { font-size: 30px; font-weight: bold; color:#933; margin-bottom:15px; margin-top:15px}
+
+.payment_total h1 { font-size:35px; color:#900; margin:10px; padding:25px; letter-spacing:3px; font-family:"Comic Sans MS", cursive}
+
+.result_container h2 { font-size:20px; margin:5px; letter-spacing:2px; line-height:20px;}
+
+#blog_article {border-width: 2px; border-style: dotted; margin-top:15px; margin-bottom:15px; padding:10px}
+#blog_article h1{ font-size:30px; font-weight:bold; letter-spacing:2px; line-height:20px; }
+#blog_article h3{ font-size:12px; font-style:italic; letter-spacing:1px; }
+#blog_article p{ font-size:13px; margin:5px; padding:5px; line-height:18px;}
+#blog_article img{ margin:5px; padding:5px; }
+.blog_menu_header{ font-size:30px; font-weight:bold; letter-spacing:8px; text-align:left; margin:5px; padding:5px; }
+#blog_menu_item{ letter-spacing:2px; margin:5px; padding:5px; text-align:right; }
+
+.profile_menu_header{ font-size:25px; font-weight:bold; letter-spacing:5px; text-align:left; margin:2px; padding:3px; }
+.profile_image{ width:250px; height:250px}
+.profile_image img
+{
+	display:block;
+	border:dashed;
+	margin:5px;
+	height:100%;
+	width:100%;    
+}
+
+#profile_information {border-width: 2px; border-style: dotted; margin-top:0px; margin-bottom:15px; padding:10px; line-height:20px;}
+.member_since{text-align:right; font-family:"Comic Sans MS", cursive; font-size:20px; color:#663}
+.profile_information_header{background:#C99; height:25px; padding:5px; font-weight:bold; font-size:18px; letter-spacing:2px;}
+
+
+.review_line { padding:2px; margin-right:20px; margin-bottom: 5px; margin-top:5px; border-width: 1px; border-style:groove; }
+
+.review_img {float:left; margin-right: 10px; border:1px black solid; padding: 2px; background:#666; width:50px; height:50px }
+
+.review_header h1 { font-size: 15px; font-weight: bold; color:#933; font-style:italic; margin-bottom:2px}
+
+.review_body p { color:#333; font-size:12px; font-style:italic;}
+
+.registration h1 { font-size: 30px; font-weight: bold; color:#933; letter-spacing:5px; margin-bottom:15px; margin-top:15px}
