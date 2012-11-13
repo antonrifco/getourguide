@@ -1,0 +1,131 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>
+    <title>Getourguide</title>
+    <link rel="stylesheet" type="text/css" href="../Content/css/itinerary/style2.css"/>
+	<link rel="stylesheet" type="text/css" href="../Content/css/itinerary/jquery-ui.css" />
+    <script src="../Scripts/itinerary/jquery-1.8.2.js"></script>
+    <script src="../Scripts/itinerary/jquery-ui.js"></script>
+    <link rel="shortcut icon" href="https://a2.muscache.com/airbnb/static/logotype_favicon-6ba9bbe6f8ca077e990ca287d87b10b5.ico">
+    
+    <style>
+		h1 { padding: .2em; margin: 0; }
+		#products { float:left; width: 90%; margin-right: 2em; }
+		#cart { width: 200px; float: left; margin-top: 1em; }
+		/* style the list to maximize the droppable hitarea */
+		#cart ol { margin: 0; padding: 1em 0 1em 3em; }
+    </style>
+    
+    <script>
+		$(function() {
+			$( "#catalog" ).accordion();
+			$( "#catalog li" ).draggable({
+				appendTo: "body",
+				helper: "clone"
+			});
+			$( "#cart ol" ).droppable({
+				activeClass: "ui-state-default",
+				hoverClass: "ui-state-hover",
+				accept: ":not(.ui-sortable-helper)",
+				drop: function( event, ui ) {
+					$( this ).find( ".placeholder" ).remove();
+					$( "<li></li>" ).text( ui.draggable.text() ).appendTo( this );
+				}
+			}).sortable({
+				items: "li:not(.placeholder)",
+				sort: function() {
+					// gets added unintentionally by droppable interacting with sortable
+					// using connectWithSortable fixes this, but doesn't allow you to customize active/hoverClass options
+					$( this ).removeClass( "ui-state-default" );
+				}
+			});
+		});
+    </script>
+</head>
+<body>
+
+<div id="header_top">
+	<div class="container">
+			<h1>
+				<a href="index.html" title="Dilasag"><img src="../content/images/logo.gif" alt="getourguide" /></a></h1>
+			<ul class="menu fr">
+			  <li class="active"><a href="index.html" title="Home">Home</a></li>
+				<li><a href="guide_registration.html" title="Be a Guide">Be a Guide</a></li>
+				<li><a href="gallery.html" title="Gallery">Gallery</a></li>
+				<li><a href="blog.html" title="Blog">Blog</a></li>
+				<li><a href="contact-us.html" title="Contact Us">Contact Us</a></li>
+			</ul>
+	</div>
+</div><!-- // end #header -->
+
+
+<div class="advsearch leftmenu">
+	<div class="colleft">
+		<div class="result_container">
+        	<div id="city">Singapore</div>
+        	<div id="products">
+                <h1 class="ui-widget-header">Choice of Activities</h1>
+                <div id="catalog">
+                    <h2><a href="#">City tour</a></h2>
+                    <div>
+                        <ul>
+                            <li>Museum</li>
+                            <li>Duck tour</li>
+                            <li>Culinary walk</li>
+                        </ul>
+                    </div>
+                    <h2><a href="#">Beach Activities</a></h2>
+                    <div>
+                        <ul>
+                            <li>Ball sport</li>
+                            <li>Surving</li>
+                            <li>Scuba diving</li>
+                        </ul>
+                    </div>
+                    <h2><a href="#">Night Activities</a></h2>
+                    <div>
+                        <ul>
+                            <li>Dancing</li>
+                            <li>Fancy Dinner</li>
+                            <li>Star gazing</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+		</div>
+		<div class="col2">
+			<!-- Column 2 start -->
+            <!-- Todo: Put tabbed container here. for multiple days itinerary -->
+            
+			<div class="secured_seal">
+            	<h1>Itinerary</h1>
+                <div id="cart">
+                    <div class="ui-widget-content">
+                        <ol>
+                            <li class="placeholder" style="list-style: none">Add your items here</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>         
+			<!-- Column 2 end -->
+		</div>
+	</div>
+</div>
+
+
+
+<div id="footer">
+	<div class="container">
+		<ul class="menu fl">
+			<li><img src="../content/images/twitter.png" title="Post to twitter"/></li>
+			<li><img src="../content/images/facebook.png" title="Post to Facebook"/></li>
+			<li><img src="../content/images/google.png" title="Post to Google+"/></li>
+			<li><a href="contact-us.html" title="Contact Us">Contact Us</a></li>
+		</ul>
+		<p>&copy; Treshno Tech, Pte. Ltd. 2012 | <a href="http://google.com">http://tresno.com</a></p>
+	</div>
+</div><!-- // end #fppter -->
+</body>
+</html>
