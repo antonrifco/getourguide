@@ -22,15 +22,36 @@
 			$( "#catalog" ).accordion();
 			$( "#catalog li" ).draggable({
 				appendTo: "body",
-				helper: "clone"
+				helper: "clone",
+				
+				// brings the item back to its place when dragging is over
+				revert: true,
+				// once the dragging starts, we decrease the opactiy of other items
+				// Appending a class as we do that with CSS
+				drag:function () {
+					$(this).addClass("active");
+					$(this).closest("#catalog").addClass("active");
+				},
+				// removing the CSS classes once dragging is over.
+				stop:function () {
+					$(this).removeClass("active").closest("#catalog").removeClass("active");
+				}
 			});
-			$( "#cart ol" ).droppable({
+			$( "#cart" ).droppable({
 				activeClass: "ui-state-default",
 				hoverClass: "ui-state-hover",
+				tolerance: "touch",
 				accept: ":not(.ui-sortable-helper)",
 				drop: function( event, ui ) {
-					$( this ).find( ".placeholder" ).remove();
-					$( "<li></li>" ).text( ui.draggable.text() ).appendTo( this );
+					item = ui.draggable;
+					itemId = $(this).find("ol li[data-id='" + item.attr("data-id") + "']");
+					if(itemId.text() == ""){
+						$( this ).find( ".placeholder" ).remove();
+						$( this ).find("ol").append('<li data-id="'
+							+ item.attr("data-id") + '">'
+							+ item.text() 
+							+ '<button class="delete">X</button></li>');
+					}
 				}
 			}).sortable({
 				items: "li:not(.placeholder)",
@@ -38,6 +59,13 @@
 					// gets added unintentionally by droppable interacting with sortable
 					// using connectWithSortable fixes this, but doesn't allow you to customize active/hoverClass options
 					$( this ).removeClass( "ui-state-default" );
+				}
+			});
+			
+			$("#cart ol li button.delete").live("click", function () {
+				$(this).closest("li").remove();
+				if($("#cart ol").find("li").length == 0){
+					$("#cart ol").append('<li class="placeholder" style="list-style: none">Add your items here</li>');
 				}
 			});
 		});
@@ -70,25 +98,25 @@
                     <h2><a href="#">City tour</a></h2>
                     <div>
                         <ul>
-                            <li>Museum</li>
-                            <li>Duck tour</li>
-                            <li>Culinary walk</li>
+                            <li data-id="1">Museum</li>
+                            <li data-id="2">Duck tour</li>
+                            <li data-id="3">Culinary walk</li>
                         </ul>
                     </div>
                     <h2><a href="#">Beach Activities</a></h2>
                     <div>
                         <ul>
-                            <li>Ball sport</li>
-                            <li>Surving</li>
-                            <li>Scuba diving</li>
+                            <li data-id="4">Ball sport</li>
+                            <li data-id="5">Surving</li>
+                            <li data-id="6">Scuba diving</li>
                         </ul>
                     </div>
                     <h2><a href="#">Night Activities</a></h2>
                     <div>
                         <ul>
-                            <li>Dancing</li>
-                            <li>Fancy Dinner</li>
-                            <li>Star gazing</li>
+                            <li data-id="7">Dancing</li>
+                            <li data-id="8">Fancy Dinner</li>
+                            <li data-id="9">Star gazing</li>
                         </ul>
                     </div>
                 </div>
@@ -104,7 +132,7 @@
                 <div id="cart">
                     <div class="ui-widget-content">
                         <ol>
-                            <li class="placeholder" style="list-style: none">Add your items here</li>
+                            <li class="placeholder" style="list-style: none">Add your itinerary here</li>
                         </ol>
                     </div>
                 </div>
