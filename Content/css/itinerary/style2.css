@@ -127,7 +127,7 @@ background-image: -webkit-gradient(
 }
 .leftmenu .col2 {
 	width:21%;			/* left column content width (column width minus left and right padding) */
-	left:6%;			/* (right column left and right padding) plus (left column left padding) */
+	left:3%;			/* (right column left and right padding) plus (left column left padding) */
 }
 
 /*** Footer ***/
@@ -151,7 +151,6 @@ background-image: -webkit-gradient(
 .content .image.fr { margin: 0px 0px 15px 20px; }
 
 #content { float: left; width: 660px; }
-#sidebar { float: right; width: 200px; }
 
 
 /*** Gallery ***/

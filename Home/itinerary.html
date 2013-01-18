@@ -9,16 +9,75 @@
     <script src="../Scripts/itinerary/jquery-ui.js"></script>
     <link rel="shortcut icon" href="https://a2.muscache.com/airbnb/static/logotype_favicon-6ba9bbe6f8ca077e990ca287d87b10b5.ico">
     
+    <link rel="stylesheet" type="text/css" href="../Content/css/itinerary/fullcalendar.css">
+    <link rel="stylesheet" type="text/css" href="../Content/css/itinerary/fullcalendar.print.css" media="print">
+    <script type="text/javascript" src="../Scripts/itinerary/fullcalendar.min.js"></script>
+    
     <style>
 		h1 { padding: .2em; margin: 0; }
 		#products { float:left; width: 90%; margin-right: 2em; }
 		#cart { width: 200px; float: left; margin-top: 1em; }
 		/* style the list to maximize the droppable hitarea */
 		#cart ol { margin: 0; padding: 1em 0 1em 3em; }
+
+		#_gdir{font-size:14px;}
+        #_gdir > div{font-weight:bold;text-align:center;}
+        #_gdir p._sum{text-align:center;font-weight:bold;color:#3a741f;}
+        #_gdir ol{padding:10px 30px 10px 40px;}
+        #_gdir ol li{border-bottom:1px solid #ccc;}
+        #_gdir ol li div p.r{font-size:11px;color:#3a741f;text-align:right;}
+        #_gdir div._copy{font-size:12px;font-weight:normal;}
+    	
+		
+		#calendar {
+			width: 300px;
+			margin: 0 auto;
+		}
     </style>
-    
+    <script type="text/javascript" src="http://gothere.sg/jsapi?sensor=false"></script>
     <script>
+    	gothere.load("maps");
+        gothere.setOnLoadCallback(initialize);
+        var directions;
+        function initialize() {
+            //$("#map_container").hide();
+            if (GBrowserIsCompatible()) {
+                // Create the Gothere map object.
+            	var map = new GMap2(document.getElementById("map"));
+            	// Set the center of the map.
+            	map.setCenter(new GLatLng(1.362083, 103.819836), 11);
+            	// Add zoom controls on the top left of the map.
+            	map.addControl(new GSmallMapControl());
+            	// Add a scale bar at the bottom left of the map.
+            	map.addControl(new GScaleControl());
+            	
+            	directions = new GDirections(map, document.getElementById("panel"));
+                //directions.load("from: Changi Airport to: Orchard Road", {travelMode: G_TRAVEL_MODE_TRANSIT});
+                
+              }
+        }
+        
+        /*function getDirections(from, to, mode) {
+            var travelMode;
+            switch(mode) {
+                case "pt":
+                    travelMode = G_TRAVEL_MODE_TRANSIT;
+                    break;
+                case "t":
+                    travelMode = G_TRAVEL_MODE_TAXI;
+                    break;
+                case "d":
+                default:
+                    travelMode = G_TRAVEL_MODE_DRIVING;
+                    break;
+            }
+            directions.load("from: " + from + " to: " + to, {travelMode: travelMode});
+        }*/
+
+
 		$(function() {
+			var start_hour = 7;
+			var start_minute = 0;
 			$( "#catalog" ).accordion();
 			$( "#catalog li" ).draggable({
 				appendTo: "body",
@@ -37,28 +96,50 @@
 					$(this).removeClass("active").closest("#catalog").removeClass("active");
 				}
 			});
-			$( "#cart" ).droppable({
+			$( "#calendar" ).droppable({
 				activeClass: "ui-state-default",
 				hoverClass: "ui-state-hover",
 				tolerance: "touch",
 				accept: ":not(.ui-sortable-helper)",
 				drop: function( event, ui ) {
 					item = ui.draggable;
-					itemId = $(this).find("ol li[data-id='" + item.attr("data-id") + "']");
+					/*itemId = $(this).find("ol li[event_id='" + item.attr("event_id") + "']");
 					if(itemId.text() == ""){
 						$( this ).find( ".placeholder" ).remove();
-						$( this ).find("ol").append('<li data-id="'
-							+ item.attr("data-id") + '">'
+						$( this ).find("ol").append('<li event_id="'
+							+ item.attr("event_id") + '">'
 							+ item.text() 
 							+ '<button class="delete">X</button></li>');
+					}*/
+
+					chosenEvent = $('#calendar').fullCalendar('clientEvents', item.attr("event_id"));
+					activity_duration_hour = parseInt(item.attr("activity_duration_hour"));
+					activity_duration_min = parseInt(item.attr("activity_duration_min"));
+					if( chosenEvent.length == 0 && (start_hour + activity_duration_hour) <= 24) {
+					    if($('#calendar').fullCalendar('clientEvents').length != 0){
+						    $('#calendar').fullCalendar( 'renderEvent', {
+		                            id : item.attr("event_id") + "_transport",
+		                            title : "Travel. Click for details!",
+		                            start : new Date(y,m,d, start_hour, start_minute),
+		                            end   : new Date(y,m,d, start_hour, start_minute + 30),
+		                            allDay: false,
+		                            editable: false,
+		                            color: "#000000"
+		                        }, true );
+							start_minute += 30;
+						}
+
+					    $('#calendar').fullCalendar( 'renderEvent', {
+	                            id : item.attr("event_id"),
+	                            title : item.text(),
+	                            start : new Date(y,m,d, start_hour, start_minute),
+	                            end   : new Date(y,m,d, start_hour + activity_duration_hour, start_minute + activity_duration_min),
+	                            allDay: false,
+	                            editable: true
+	                        }, true );
+						start_hour += activity_duration_hour;
+						start_minute += activity_duration_min;
 					}
-				}
-			}).sortable({
-				items: "li:not(.placeholder)",
-				sort: function() {
-					// gets added unintentionally by droppable interacting with sortable
-					// using connectWithSortable fixes this, but doesn't allow you to customize active/hoverClass options
-					$( this ).removeClass( "ui-state-default" );
 				}
 			});
 			
@@ -68,8 +149,95 @@
 					$("#cart ol").append('<li class="placeholder" style="list-style: none">Add your items here</li>');
 				}
 			});
+
+		    $("body").click(function(e) {
+		        if (e.target.id == "map_container" || $(e.target).parents("#calendar").size() || $(e.target).parents("#map_container").size()) { 
+		            ;
+		        } else { 
+		           $("#map_container:visible").fadeOut();
+		        }
+		    });
+			
+			var date = new Date();
+			var d = date.getDate();
+			var m = date.getMonth();
+			var y = date.getFullYear();
+			
+			$('#calendar').fullCalendar({
+				header: {
+					left: 'prev,next',
+					center: 'title',
+					right: ''
+				},
+				allDaySlot: false,
+				height: 600,
+				defaultView: 'agendaDay',
+				editable: true,
+				minTime:6,
+				maxTime:24,
+				events: [],
+				selectHelper: true,
+				eventDrop: function(event,dayDelta,minuteDelta,allDay,revertFunc) {
+					var events_search = $('#calendar').fullCalendar('clientEvents');
+				    //two events can't overlap
+				    ok=true
+				    for(i in events_search){
+				        if(events_search[i].id != event.id && events_search[i].id != event.id + "_transport"){
+				            if(!(events_search[i].start >= event.end || events_search[i].end <= event.start)){
+				                revertFunc();
+				                ok=false;
+				                break;
+				            }
+				        }
+				    }
+
+				    if(ok && $('#calendar').fullCalendar('clientEvents').length != 1){
+				    	var events_transport = $('#calendar').fullCalendar('clientEvents', event.id + "_transport");
+				    	e_travel = events_transport[0];
+				    	e_travel.start = new Date(e_travel.start.getTime() + minuteDelta*60000);
+				    	e_travel.end = new Date(e_travel.end.getTime() + minuteDelta*60000);
+				    	$('#calendar').fullCalendar('updateEvent', e_travel);
+
+				    	/*transport_duration = e_travel.end.getTime() - e_travel.start.getTime();
+				    	event.start = new Date(event.start.getTime() - transport_duration);
+				    	event.end = new Date(event.end.getTime() - transport_duration);
+				    	$('#calendar').fullCalendar('updateEvent', event);*/
+				    }
+
+			    },
+			    eventClick: function(event, element) {
+			        if(event.id.indexOf("_transport") !== -1){
+                		rnd = Math.floor((Math.random()*4)+1);
+                		if(rnd == 1)
+                			directions.load("from: Changi Airport to: Orchard Road", {travelMode: G_TRAVEL_MODE_TRANSIT});
+			        	else if(rnd == 2)
+			        		directions.load("from: Holland Village to: Orchard Road", {travelMode: G_TRAVEL_MODE_TRANSIT});
+			        	else if(rnd == 3)
+			        		directions.load("from: Tiong Bahru Plaza to: Orchard Road", {travelMode: G_TRAVEL_MODE_TRANSIT});
+			        	else if(rnd == 4)
+			        		directions.load("from: Japanese Garden to: Orchard Road", {travelMode: G_TRAVEL_MODE_TRANSIT});
+			        	$("#map_container").fadeIn("slow");
+			        }
+			    },
+			    eventResize: function( event, dayDelta, minuteDelta, revertFunc, jsEvent, ui, view ) { 
+			    	var events_search = $('#calendar').fullCalendar('clientEvents', event.id + "_transport");
+			    	e_travel = events_search[0];
+			    	e_travel.start = new Date(e_travel.start.getTime() + minuteDelta*60000);
+			    	e_travel.end = new Date(e_travel.end.getTime() + minuteDelta*60000);
+			    	$('#calendar').fullCalendar('updateEvent', e_travel);
+			    }
+			});
+
+			$('.fc-button-prev .fc-button-inner span').click(function(){
+			   alert('prev is clicked, do something');
+			});
+
+			$('.fc-button-next .fc-button-inner span').click(function(){
+			   alert('nextis clicked, do something');
+			});
 		});
     </script>
+
 </head>
 <body>
 
@@ -91,6 +259,11 @@
 <div class="advsearch leftmenu">
 	<div class="colleft">
 		<div class="result_container">
+			<div id="map_container" style="position:absolute;z-index:3;background:#abc;padding:10px;display:none">
+        		<div id="map" style="width:500px;height:500px;margin-right:20px;float:left;"></div>
+        		<div id="panel" style="width:300px; height:500px;float:left;"></div>
+    
+		    </div>
         	<div id="city">Singapore</div>
         	<div id="products">
                 <h1 class="ui-widget-header">Choice of Activities</h1>
@@ -98,25 +271,25 @@
                     <h2><a href="#">City tour</a></h2>
                     <div>
                         <ul>
-                            <li data-id="1">Museum</li>
-                            <li data-id="2">Duck tour</li>
-                            <li data-id="3">Culinary walk</li>
+                            <li event_id="1" activity_duration_hour="1" activity_duration_min="30">Museum</li>
+                            <li event_id="2" activity_duration_hour="3" activity_duration_min="30">Duck tour</li>
+                            <li event_id="3" activity_duration_hour="1" activity_duration_min="30">Culinary walk</li>
                         </ul>
                     </div>
                     <h2><a href="#">Beach Activities</a></h2>
                     <div>
                         <ul>
-                            <li data-id="4">Ball sport</li>
-                            <li data-id="5">Surving</li>
-                            <li data-id="6">Scuba diving</li>
+                            <li event_id="4" activity_duration_hour="3" activity_duration_min="30">Ball sport</li>
+                            <li event_id="5" activity_duration_hour="3" activity_duration_min="30">Surving</li>
+                            <li event_id="6" activity_duration_hour="5" activity_duration_min="30">Scuba diving</li>
                         </ul>
                     </div>
                     <h2><a href="#">Night Activities</a></h2>
                     <div>
                         <ul>
-                            <li data-id="7">Dancing</li>
-                            <li data-id="8">Fancy Dinner</li>
-                            <li data-id="9">Star gazing</li>
+                            <li event_id="7" activity_duration_hour="1" activity_duration_min="30">Dancing</li>
+                            <li event_id="8" activity_duration_hour="2" activity_duration_min="30">Fancy Dinner</li>
+                            <li event_id="9" activity_duration_hour="2" activity_duration_min="30">Star gazing</li>
                         </ul>
                     </div>
                 </div>
@@ -126,17 +299,8 @@
 		<div class="col2">
 			<!-- Column 2 start -->
             <!-- Todo: Put tabbed container here. for multiple days itinerary -->
-            
-			<div class="secured_seal">
-            	<h1>Itinerary</h1>
-                <div id="cart">
-                    <div class="ui-widget-content">
-                        <ol>
-                            <li class="placeholder" style="list-style: none">Add your itinerary here</li>
-                        </ol>
-                    </div>
-                </div>
-            </div>         
+            <div id='calendar'></div>
+			
 			<!-- Column 2 end -->
 		</div>
 	</div>
