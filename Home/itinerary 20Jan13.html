@@ -1,0 +1,527 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>
+    <title>Getourguide</title>
+    <link rel="stylesheet" type="text/css" href="../Content/css/itinerary/style2.css"/>
+	<link rel="stylesheet" type="text/css" href="../Content/css/itinerary/jquery-ui.css" />
+    <script src="../Scripts/itinerary/jquery-1.8.2.js"></script>
+    <script src="../Scripts/itinerary/jquery-ui.js"></script>
+    <link rel="shortcut icon" href="https://a2.muscache.com/airbnb/static/logotype_favicon-6ba9bbe6f8ca077e990ca287d87b10b5.ico">
+    
+    <link rel="stylesheet" type="text/css" href="../Content/css/itinerary/fullcalendar.css">
+    <link rel="stylesheet" type="text/css" href="../Content/css/itinerary/fullcalendar.print.css" media="print">
+    <script type="text/javascript" src="../Scripts/itinerary/fullcalendar.min.js"></script>
+    
+    <style>
+		h1 { padding: .2em; margin: 0; }
+		#products { float:left; width: 90%; margin-right: 2em; }
+		#cart { width: 200px; float: left; margin-top: 1em; }
+		/* style the list to maximize the droppable hitarea */
+		#cart ol { margin: 0; padding: 1em 0 1em 3em; }
+
+		#_gdir{font-size:14px;}
+        #_gdir > div{font-weight:bold;text-align:center;}
+        #_gdir p._sum{text-align:center;font-weight:bold;color:#3a741f;}
+        #_gdir ol{padding:10px 30px 10px 40px;}
+        #_gdir ol li{border-bottom:1px solid #ccc;}
+        #_gdir ol li div p.r{font-size:11px;color:#3a741f;text-align:right;}
+        #_gdir div._copy{font-size:12px;font-weight:normal;}
+    	
+		
+		#calendar {
+			width: 300px;
+			margin: 0 auto;
+		}
+    </style>
+    <script type="text/javascript" src="http://gothere.sg/jsapi?sensor=false"></script>
+    <script>
+    	gothere.load("maps");
+        gothere.setOnLoadCallback(initialize);
+        var directions;
+        function initialize() {
+            //$("#map_container").hide();
+            if (GBrowserIsCompatible()) {
+                // Create the Gothere map object.
+            	var map = new GMap2(document.getElementById("map"));
+            	// Set the center of the map.
+            	map.setCenter(new GLatLng(1.362083, 103.819836), 11);
+            	// Add zoom controls on the top left of the map.
+            	map.addControl(new GSmallMapControl());
+            	// Add a scale bar at the bottom left of the map.
+            	map.addControl(new GScaleControl());
+            	
+            	directions = new GDirections(map, document.getElementById("panel"));
+                //directions.load("from: Changi Airport to: Orchard Road", {travelMode: G_TRAVEL_MODE_TRANSIT});
+                
+              }
+        }
+        
+        /*function getDirections(from, to, mode) {
+            var travelMode;
+            switch(mode) {
+                case "pt":
+                    travelMode = G_TRAVEL_MODE_TRANSIT;
+                    break;
+                case "t":
+                    travelMode = G_TRAVEL_MODE_TAXI;
+                    break;
+                case "d":
+                default:
+                    travelMode = G_TRAVEL_MODE_DRIVING;
+                    break;
+            }
+            directions.load("from: " + from + " to: " + to, {travelMode: travelMode});
+        }*/
+
+		function addMinutes(date, minutes) {
+		    return new Date(date.getTime() + minutes*60000);
+		}
+
+		function getSmallestStartDate(arrayDate, id_toignore) {
+			d = new Date();
+			d.setHours(23);
+			d.setMinutes(59);
+			m = {start : d};
+			$.each(arrayDate, function(i,item){
+				if(item.start <= m.start && item.id != id_toignore)
+					m = item;
+			});
+			if(m.id == null) return null;
+		    else return m;
+		}
+
+		function getBiggestEndDate(arrayDate, id_toignore) {
+			d = new Date();
+			d.setHours(0);
+			d.setMinutes(0);
+			m = {end : d}
+			$.each(arrayDate,function(i,item){
+				if(item.end >= m.end && item.id != id_toignore)
+					m = item;
+			});
+			if(m.id == null) return null; 
+		    else return m;
+		}
+
+		function getNextEvent(arrayEvent, event) {
+			d = new Date();
+			d.setHours(23);
+			d.setMinutes(59);
+			m = {start : d}
+			$.each(arrayDate,function(i,item){
+				if(item.start > event.start && item.start <= m.start)
+					m = item;
+			});
+			if(m.id == null) { return null;  }
+		    else return m;
+		}
+		
+		function getPreviousEvent(arrayEvent, event) {
+			d = new Date();
+			d.setHours(0);
+			d.setMinutes(0);
+			m = {start : d}
+			$.each(arrayDate,function(i,item){
+				if(item.start < event.start && item.start >= m.start)
+					m = item;
+			});
+			if(m.id == null) { return null;  }
+		    else return m;
+		}
+		
+		$(function() {
+			var date = new Date();
+			date.setHours(8);
+			date.setMinutes(0);
+			$( "#catalog" ).accordion();
+			$( "#catalog li" ).draggable({
+				appendTo: "body",
+				helper: "clone",
+				
+				// brings the item back to its place when dragging is over
+				revert: true,
+				// once the dragging starts, we decrease the opactiy of other items
+				// Appending a class as we do that with CSS
+				drag:function () {
+					$(this).addClass("active");
+					$(this).closest("#catalog").addClass("active");
+				},
+				// removing the CSS classes once dragging is over.
+				stop:function () {
+					$(this).removeClass("active").closest("#catalog").removeClass("active");
+				}
+			});
+			$( "#calendar" ).droppable({
+				activeClass: "ui-state-default",
+				hoverClass: "ui-state-hover",
+				tolerance: "touch",
+				accept: ":not(.ui-sortable-helper)",
+				drop: function( event, ui ) {
+					item = ui.draggable;
+					/*itemId = $(this).find("ol li[event_id='" + item.attr("event_id") + "']");
+					if(itemId.text() == ""){
+						$( this ).find( ".placeholder" ).remove();
+						$( this ).find("ol").append('<li event_id="'
+							+ item.attr("event_id") + '">'
+							+ item.text() 
+							+ '<button class="delete">X</button></li>');
+					}*/
+					chosenEvent = $('#calendar').fullCalendar('clientEvents', function(event_s) {
+			                return (event_s.id == item.attr("event_id") && event_s.start.getDate() == date.getDate());
+			            });
+					activity_duration_hour = parseInt(item.attr("activity_duration_hour"));
+					activity_duration_min = parseInt(item.attr("activity_duration_min"));
+					est_finish_event = addMinutes(date, activity_duration_hour*60 + activity_duration_min);
+					//not allowed to go to same place in same day
+					var d = date.getDate();
+					var m = date.getMonth();
+					var y = date.getFullYear();
+					
+					//not yet exist AND estimated finish still in the same day
+		  			if( chosenEvent.length == 0 && est_finish_event.getDay() == date.getDay()) {
+					    if($('#calendar').fullCalendar('clientEvents',function(event_s) {
+				                return event_s.start.getDate() == date.getDate();
+				            }).length != 0){
+						    
+							e_before = $('#calendar').fullCalendar('clientEvents',function(event_s) {
+				                return (event_s.start.getDate() == date.getDate() && event_s.end.getHours() <= date.getHours());
+				            })
+							from = e_before[0].title;
+							gmaps_url = "http://maps.googleapis.com/maps/api/directions/json?origin="+encodeURIComponent(from)+",Singapore&destination="+encodeURIComponent(item.text())+",Singapore&sensor=false&mode=transit&departure_time=1358548470";
+						   	$.getJSON(gmaps_url,
+							  	function(data) {
+								    duration = Math.floor( parseInt(data.routes[0].legs[0].duration.value) / 60);
+								    duration_text = data.routes[0].legs[0].duration.text;
+								    $('#calendar').fullCalendar( 'renderEvent', {
+				                            id : item.attr("event_id") + "_transport",
+				                            title : "Travel ["+duration_text+"]. Click for details!",
+				                            start : date,
+				                            end   : addMinutes(date, duration),
+				                            allDay: false,
+				                            editable: false,
+				                            color: "#000000"
+				                        }, true );
+									date = addMinutes(date, duration);
+
+									$('#calendar').fullCalendar( 'renderEvent', {
+				                            id : item.attr("event_id"),
+				                            title : item.text(),
+				                            start : date,
+				                            next: "hoho",
+				                            before: "hehe",
+				                            end   : addMinutes(date, activity_duration_hour*60 + activity_duration_min),
+				                            allDay: false,
+				                            editable: true
+				                        }, true );
+									date = addMinutes(date, activity_duration_hour*60 + activity_duration_min);
+							});
+						} else{
+
+						    $('#calendar').fullCalendar( 'renderEvent', {
+		                            id : item.attr("event_id"),
+		                            title : item.text(),
+		                            start : date,
+		                            end   : addMinutes(date, activity_duration_hour*60 + activity_duration_min),
+		                            allDay: false,
+		                            editable: true
+		                        }, true );
+							date = addMinutes(date, activity_duration_hour*60 + activity_duration_min);
+						}
+					}
+				}
+			});
+			
+			$("#cart ol li button.delete").live("click", function () {
+				$(this).closest("li").remove();
+				if($("#cart ol").find("li").length == 0){
+					$("#cart ol").append('<li class="placeholder" style="list-style: none">Add your items here</li>');
+				}
+			});
+
+		    $("body").click(function(e) {
+		        if (e.target.id == "map_container" || $(e.target).parents("#calendar").size() || $(e.target).parents("#map_container").size()) { 
+		            ;
+		        } else { 
+		           $("#map_container:visible").fadeOut();
+		        }
+		    });
+			
+			$('#calendar').fullCalendar({
+				header: {
+					left: 'title',
+					center: '',
+					right: 'prev,next'
+				},
+				allDaySlot: false,
+				height: 600,
+				defaultView: 'agendaDay',
+				editable: true,
+				minTime:6,
+				maxTime:24,
+				slotMinutes: 30,
+				events: [],
+				selectHelper: true,
+				eventMouseover: function( event, jsEvent, view ) { 
+					$("#calendar").attr("title", event.title);
+				},
+				eventDrop: function(event,dayDelta,minuteDelta,allDay,revertFunc) {
+					//two events can't overlap
+				    var events_search = $('#calendar').fullCalendar('clientEvents',function(event_s) {
+				                return event_s.start.getDate() == date.getDate();
+				            });
+				    ok=true
+				    if(event.start.getHours() < 6 || event.end.getDay() != date.getDay()){
+				    	ok=false;
+				    	revertFunc();
+				    }else{
+					    for(i in events_search){
+					        if(events_search[i].id != event.id && events_search[i].id != event.id + "_transport"){
+					            if(!(events_search[i].start >= event.end || events_search[i].end <= event.start)){
+					                revertFunc();
+					                ok=false;
+					                break;
+					            }
+					        }
+					    }
+					}
+
+				    //not overlap and there's other event / not only this event
+				    if(ok && events_search.length != 1){
+				    	// remove the travel event, if any
+						//first case: there's event before this
+					    e_before = $('#calendar').fullCalendar('clientEvents',function(event_s) {
+				                return (event_s.start.getDate() == date.getDate() && event_s.end <= event.start);
+				            })
+					    if(e_before.length != 0){
+				    		proceed = true;
+					    	e_right_before = getBiggestEndDate(e_before, "dummy");
+				    		from = e_right_before.title;
+				    		if(e_right_before.id.indexOf("_transport") !== -1){
+					    		// remove this travel calculation, as it's no more valid
+					    		$('#calendar').fullCalendar('removeEvents',e_right_before.id);
+
+					    		event_from = getBiggestEndDate(e_before,e_right_before.id);
+					    		if(event_from == null) proceed = false;
+								else from = event_from.title;
+					    	}
+					    	if(proceed){
+					    		gmaps_url = "http://maps.googleapis.com/maps/api/directions/json?origin="+encodeURIComponent(from)+",Singapore&destination="+encodeURIComponent(event.title)+",Singapore&sensor=false&mode=transit&departure_time=1358548470";
+							   	$.getJSON(gmaps_url,
+								  	function(data) {
+									    duration = Math.floor( parseInt(data.routes[0].legs[0].duration.value) / 60);
+									    duration_text = data.routes[0].legs[0].duration.text;
+									    start_date_t = addMinutes(event.start, -1 * duration);
+									    
+									    e_travel_overlap = $('#calendar').fullCalendar('clientEvents',function(event_s) {
+							                return !(event_s.start >= event.start || event_s.end <= start_date_t);
+							            })
+							    		if(e_travel_overlap.length > 0){
+							    			e_travel_overlap_sel = getBiggestEndDate(e_travel_overlap, "dummy")
+							    			gap_minute = (event.start.getTime() - e_travel_overlap_sel.end.getTime()) / 60000;
+							    			event.start = addMinutes(event.start, duration - gap_minute);
+							    			event.end = addMinutes(event.end, duration - gap_minute);
+							    			start_date_t = e_travel_overlap_sel.end;
+				    						$('#calendar').fullCalendar('updateEvent', event);
+							    		} 
+							    		$('#calendar').fullCalendar( 'renderEvent', {
+					                            id : event.id + "_transport",
+					                            title : "Travel ["+duration_text+"]. Click for details!",
+					                            start : start_date_t,
+					                            end   : event.start,
+					                            allDay: false,
+					                            editable: false,
+					                            color: "#000000"
+					                        }, true );
+								});
+							};
+						}
+
+						//second case: there's event after this
+						e_after = $('#calendar').fullCalendar('clientEvents',function(event_s) {
+				                return (event_s.start.getDate() == date.getDate() && event_s.start >= event.end);
+				            })
+						if(e_after.length != 0){
+							proceed = true;
+							e_right_after = getSmallestStartDate(e_after,"dummy");
+				    		to = e_right_after.title;
+				    		if(e_right_after.id.indexOf("_transport") !== -1){
+				    			// remove this travel calculation, as it's no more valid
+								$('#calendar').fullCalendar('removeEvents',e_right_after.id);
+								event_to = getSmallestStartDate(e_after, e_right_after.id);
+								if(event_to == null) proceed = false;
+								else to = event_to.title;
+				    		}
+				    		
+				    		if(proceed){
+					    		gmaps_url = "http://maps.googleapis.com/maps/api/directions/json?origin="+encodeURIComponent(event.title)+",Singapore&destination="+encodeURIComponent(to)+",Singapore&sensor=false&mode=transit&departure_time=1358548470";
+							   	
+							   	$.getJSON(gmaps_url,
+								  	function(data) {
+									    duration = Math.floor( parseInt(data.routes[0].legs[0].duration.value) / 60);
+									    duration_text = data.routes[0].legs[0].duration.text;
+									    end_date_t = addMinutes(event.end, duration);
+									    
+									    e_travel_overlap = $('#calendar').fullCalendar('clientEvents',function(event_s) {
+							                return !(event_s.start >= end_date_t || event_s.end <= event.end);
+							            })
+							    		if(e_travel_overlap.length > 0){
+							    			e_travel_overlap_sel = getSmallestStartDate(e_travel_overlap,"dummy");
+							    			gap_minute = (e_travel_overlap_sel.start.getTime() - event.end.getTime()) / 60000;
+							    			event.start = addMinutes(event.start, (duration - gap_minute) * -1);
+							    			event.end = addMinutes(event.end, (duration - gap_minute) * -1);
+							    			end_date_t = e_travel_overlap_sel.start;
+				    						$('#calendar').fullCalendar('updateEvent', event);
+							    		} 
+							    		$('#calendar').fullCalendar( 'renderEvent', {
+					                            id : event.id + "_transport",
+					                            title : "Travel ["+duration_text+"]. Click for details!",
+					                            start : event.end,
+					                            end   : end_date_t,
+					                            allDay: false,
+					                            editable: false,
+					                            color: "#000000"
+					                        }, true );
+								});
+							}
+					    }
+				    }
+
+				    all_event = $('#calendar').fullCalendar('clientEvents');
+				    event_first = getSmallestStartDate(all_event,"dummy");
+				    if(event_first != null){
+				    	if(event_first.id.indexOf("_transport") !== -1){
+				    		$('#calendar').fullCalendar('removeEvents',event_first.id);
+				    	}
+				    }
+
+					event_last = getBiggestEndDate(all_event,"dummy");
+				    if(event_last != null){
+				    	if(event_last.id.indexOf("_transport") !== -1){
+				    		$('#calendar').fullCalendar('removeEvents',event_last.id);
+				    	}
+				    }
+				    date = event_last.end;
+
+			    },
+			    eventClick: function(event, element) {
+			        if(event.id.indexOf("_transport") !== -1){
+                		e_before = $('#calendar').fullCalendar('clientEvents',function(event_s) {
+			                return event_s.end <= event.start;
+			            })
+			            from = e_before[e_before.length-1].id;
+			    		
+                		e_after = $('#calendar').fullCalendar('clientEvents',function(event_s) {
+			                return event_s.start >= event.end;
+			            })
+			            to = e_after[0].id;
+
+			            directions.load("from: "+from+" to: " + to, {travelMode: G_TRAVEL_MODE_TRANSIT});
+			        	$("#map_container").fadeIn("slow");
+			        }
+			    },
+			    eventResize: function( event, dayDelta, minuteDelta, revertFunc, jsEvent, ui, view ) { 
+			    	var events_search = $('#calendar').fullCalendar('clientEvents', event.id + "_transport");
+			    	e_travel = events_search[0];
+			    	e_travel.start = new Date(e_travel.start.getTime() + minuteDelta*60000);
+			    	e_travel.end = new Date(e_travel.end.getTime() + minuteDelta*60000);
+			    	$('#calendar').fullCalendar('updateEvent', e_travel);
+			    }
+			});
+
+			$("#calendar .fc-button-prev").click(function() {
+			  	date.setDate(date.getDate() - 1);
+			  	date.setHours(8);
+				date.setMinutes(0);
+			});
+			$("#calendar .fc-button-next").click(function() {
+			  	date.setDate(date.getDate() + 1);
+			  	date.setHours(8);
+				date.setMinutes(0);
+			});
+		});
+    </script>
+
+</head>
+<body>
+
+<div id="header_top">
+	<div class="container">
+			<h1>
+				<a href="index.html" title="Dilasag"><img src="../content/images/logo.gif" alt="getourguide" /></a></h1>
+			<ul class="menu fr">
+			  <li class="active"><a href="index.html" title="Home">Home</a></li>
+				<li><a href="guide_registration.html" title="Be a Guide">Be a Guide</a></li>
+				<li><a href="gallery.html" title="Gallery">Gallery</a></li>
+				<li><a href="blog.html" title="Blog">Blog</a></li>
+				<li><a href="contact-us.html" title="Contact Us">Contact Us</a></li>
+			</ul>
+	</div>
+</div><!-- // end #header -->
+
+
+<div class="advsearch leftmenu">
+	<div class="colleft">
+		<div class="result_container">
+			<div id="map_container" style="position:absolute;z-index:3;background:#abc;padding:10px;display:none">
+        		<div id="map" style="width:500px;height:500px;margin-right:20px;float:left;"></div>
+        		<div id="panel" style="width:300px; height:500px;float:left;"></div>
+    
+		    </div>
+		    <div id="city">Singapore</div>
+        	<div id="products">
+                <h1 class="ui-widget-header">Choice of Activities</h1>
+                <div id="catalog">
+                    <h2><a href="#">City tour</a></h2>
+                    <div>
+                        <ul>
+                            <li event_id="238863" activity_duration_hour="1" activity_duration_min="30">Orchard Road</li>
+                            <li event_id="619795" activity_duration_hour="3" activity_duration_min="30">Chinese Garden</li>
+                            <li event_id="168732" activity_duration_hour="1" activity_duration_min="30">Tiong Bahru Plaza</li>
+                        </ul>
+                    </div>
+                    <h2><a href="#">Beach Activities</a></h2>
+                    <div>
+                        <ul>
+                            <li event_id="508419" activity_duration_hour="3" activity_duration_min="30">Pulau Ubin Lagoon Resort</li>
+                            <li event_id="098588" activity_duration_hour="3" activity_duration_min="30">Sentosa Island</li>
+                            <li event_id="049835" activity_duration_hour="5" activity_duration_min="30">Boat Quay</li>
+                        </ul>
+                    </div>
+                    <h2><a href="#">Night Activities</a></h2>
+                    <div>
+                        <ul>
+                            <li event_id="049178" activity_duration_hour="1" activity_duration_min="30">Fullerton Hotel</li>
+                            <li event_id="098585" activity_duration_hour="2" activity_duration_min="30">Vivo City</li>
+                            <li event_id="059815" activity_duration_hour="2" activity_duration_min="30">Clarke Quay</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+		</div>
+		<div class="col2">
+			<!-- Column 2 start -->
+            <!-- Todo: Put tabbed container here. for multiple days itinerary -->
+            <div id='calendar'></div>
+			
+			<!-- Column 2 end -->
+		</div>
+	</div>
+</div>
+
+
+
+<div id="footer">
+	<div class="container">
+		<ul class="menu fl">
+			<li><img src="../content/images/twitter.png" title="Post to twitter"/></li>
+			<li><img src="../content/images/facebook.png" title="Post to Facebook"/></li>
+			<li><img src="../content/images/google.png" title="Post to Google+"/></li>
+			<li><a href="contact-us.html" title="Contact Us">Contact Us</a></li>
+		</ul>
+		<p>&copy; Treshno Tech, Pte. Ltd. 2012 | <a href="http://google.com">http://tresno.com</a></p>
+	</div>
+</div><!-- // end #fppter -->
+</body>
+</html>
