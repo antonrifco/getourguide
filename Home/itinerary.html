@@ -125,6 +125,7 @@
 			d.setMinutes(59);
 			m = {start : d}
 			$.each(arrayEvent,function(i,item){
+				console.log('check is before: ' + event.start + ' < ' + item.start);
 				if(item.start > event.start && item.start <= m.start && !isTravelEvent(item) && event.id != item.id)
 					m = item;
 			});
@@ -218,9 +219,14 @@
 		function isEventPossibleToUnOverlap(arrayEvent, event){
 			e = $.extend({}, event);
 			e = unOverlap(arrayEvent, e);
-			if(isEventOverlap(arrayEvent, e) || e.start.getHours() < 6 || e.end.getDate() != curdate.getDate()){
-				console.log('cant unOverlap')
+			if(e.start.getHours() < 6 || e.end.getDate() != curdate.getDate())
 				return false;
+			else if(isEventOverlap(arrayEvent, e)){
+				e = unOverlap(arrayEvent, e);
+				if(isEventOverlap(arrayEvent, e) ){
+					console.log('cant unOverlap')
+					return false;
+				}
 			}
 			return true;
 		}
@@ -336,10 +342,36 @@
 						    if(sameDayEvents.length != 0){
 							    if(isEventOverlap(sameDayEvents, copiedEventObject)){
 							    	copiedEventObject = unOverlap(sameDayEvents, copiedEventObject);
+							    	if(isEventOverlap(sameDayEvents, copiedEventObject)){
+							    		copiedEventObject = unOverlap(sameDayEvents, copiedEventObject);
+							    	}
 							    }
+								
+
+
+							    put_prev_event = getPreviousEvent(sameDayEvents, copiedEventObject);
+								put_next_event = getNextEvent(sameDayEvents, copiedEventObject);
+								if(put_prev_event != null && isTravelEvent(put_prev_event)){
+									$('#calendar').fullCalendar('removeEvents',put_prev_event.id);
+									sameDayEvents = $('#calendar').fullCalendar('clientEvents',function(event_s) {
+						                return event_s.start.getDate() == curdate.getDate();
+						            });
+							    }
+							    if(put_next_event != null && isTravelEvent(put_next_event)){
+									$('#calendar').fullCalendar('removeEvents',put_next_event.id);
+									sameDayEvents = $('#calendar').fullCalendar('clientEvents',function(event_s) {
+						                return event_s.start.getDate() == curdate.getDate();
+						            });
+							    }
+
+
+
+
+
 								e_before = getPreviousEventNotTravel(sameDayEvents, copiedEventObject)
 								if(e_before != null) {
 									//there's event before
+									console.log('calculating travel event before:' + e_before.id)
 									from = e_before.title;
 									to = copiedEventObject.title;
 									event_t_before = {
@@ -372,41 +404,41 @@
 							    			}
 									});
 								}
-								else{
+								
+								e_after = getNextEventNotTravel(sameDayEvents, copiedEventObject)
+								if(e_after != null) {
+									//there's event after
+									console.log('calculating travel event after:' + e_after.id)
+									from = copiedEventObject.title;
+									to = e_after.title;
+									event_t_after = {
+			                            id : getTimestamp() + "_transport",
+			                            title : "Travel [XXX]. Calculating travel time...",
+		                            	start : addMinutes(e_after.start, -1 * 30),
+			                            end   : e_after.start,
+			                            allDay: false,
+			                            type: 'travel',
+		                            	editable: false,
+			                            color: "#000000"
+			                        }
+								    $('#calendar').fullCalendar( 'renderEvent', event_t_after, true );
+									gmaps_url = "http://maps.googleapis.com/maps/api/directions/json?origin="+encodeURIComponent(from)+",Singapore&destination="+encodeURIComponent(to)+",Singapore&sensor=false&mode=transit&departure_time=1358548470";
+								   	$.getJSON(gmaps_url,
+									  	function(data) {
+										    duration_g = Math.floor( parseInt(data.routes[0].legs[0].duration.value) / 60);
+										    duration_g_text = data.routes[0].legs[0].duration.text;
+										    event_t_after.start = addMinutes(e_after.start, -1 * duration_g);
+									   		event_t_after.title = "Travel [" +duration_g_text+ "]. Click for details!"
+						                	$('#calendar').fullCalendar( 'updateEvent', event_t_after );
 
-									e_after = getNextEventNotTravel(sameDayEvents, copiedEventObject)
-									if(e_after != null) {
-										//there's event after
-										from = copiedEventObject.title;
-										to = e_after.title;
-										event_t_after = {
-				                            id : getTimestamp() + "_transport",
-				                            title : "Travel [XXX]. Calculating travel time...",
-			                            	start : addMinutes(e_after.start, -1 * 30),
-				                            end   : e_after.start,
-				                            allDay: false,
-				                            type: 'travel',
-			                            	editable: false,
-				                            color: "#000000"
-				                        }
-									    $('#calendar').fullCalendar( 'renderEvent', event_t_after, true );
-										gmaps_url = "http://maps.googleapis.com/maps/api/directions/json?origin="+encodeURIComponent(from)+",Singapore&destination="+encodeURIComponent(to)+",Singapore&sensor=false&mode=transit&departure_time=1358548470";
-									   	$.getJSON(gmaps_url,
-										  	function(data) {
-											    duration_g = Math.floor( parseInt(data.routes[0].legs[0].duration.value) / 60);
-											    duration_g_text = data.routes[0].legs[0].duration.text;
-											    event_t_after.start = addMinutes(e_after.start, -1 * duration_g);
-										   		event_t_after.title = "Travel [" +duration_g_text+ "]. Click for details!"
-							                	$('#calendar').fullCalendar( 'updateEvent', event_t_after );
-
-											    if(isTwoEventOverlap(event_t_after, copiedEventObject)){
-												    copiedEventObject.start = addMinutes(e_after.start, -1 * (duration_g + copiedEventObject.duration));
-									    			copiedEventObject.end = addMinutes(e_after.start, -1 * duration_g)
-									    			$('#calendar').fullCalendar('updateEvent', copiedEventObject);
-									    		}
-										});
-									} 
-								}
+										    if(isTwoEventOverlap(event_t_after, copiedEventObject)){
+											    copiedEventObject.start = addMinutes(e_after.start, -1 * (duration_g + copiedEventObject.duration));
+								    			copiedEventObject.end = addMinutes(e_after.start, -1 * duration_g)
+								    			$('#calendar').fullCalendar('updateEvent', copiedEventObject);
+								    		}
+									});
+								} 
+								
 							} 
 
 							$('#calendar').fullCalendar('renderEvent', copiedEventObject, true);
@@ -462,8 +494,12 @@
 
 					    if(del_af || del_bef){
 					    	ori_prev_event = getPreviousEventNotTravel(events_search, original_event);
+							prev_event = getPreviousEventNotTravel(events_search, event);
 							ori_next_event = getNextEventNotTravel(events_search, original_event);
-							if(ori_prev_event != null && ori_next_event != null){
+							next_event = getNextEventNotTravel(events_search, event);
+							if(prev_event == null) next_event = {id: "dummy"}
+							if(next_event == null) next_event = {id: "dummy"}
+							if(ori_prev_event != null && ori_next_event != null && next_event.id != ori_next_event.id && prev_event.id != ori_prev_event.id){
 								from = ori_prev_event.title;
 					    		to = ori_next_event.title;
 					    		gmaps_url = "http://maps.googleapis.com/maps/api/directions/json?origin="+encodeURIComponent(from)+",Singapore&destination="+encodeURIComponent(to)+",Singapore&sensor=false&mode=transit&departure_time=1358548470";
