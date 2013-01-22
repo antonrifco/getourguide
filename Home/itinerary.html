@@ -12,6 +12,7 @@
     <link rel="stylesheet" type="text/css" href="../Content/css/itinerary/fullcalendar.css">
     <link rel="stylesheet" type="text/css" href="../Content/css/itinerary/fullcalendar.print.css" media="print">
     <script type="text/javascript" src="../Scripts/itinerary/fullcalendar.min.js"></script>
+	<script type="text/javascript" src="../Scripts/index/metrojs.js"></script>
     
     <style>
 		h1 { padding: .2em; margin: 0; }
@@ -34,6 +35,7 @@
 			margin: 0 auto;
 		}
     </style>
+	<link rel="stylesheet" type="text/css" href="../content/css/index/metrojs.css"/>
     <script type="text/javascript" src="http://gothere.sg/jsapi?sensor=false"></script>
     <script>
     	var curdate = new Date()
@@ -219,14 +221,9 @@
 		function isEventPossibleToUnOverlap(arrayEvent, event){
 			e = $.extend({}, event);
 			e = unOverlap(arrayEvent, e);
-			if(e.start.getHours() < 6 || e.end.getDate() != curdate.getDate())
+			if(isEventOverlap(arrayEvent, e) || e.start.getHours() < 6 || e.end.getDate() != curdate.getDate()){
+				console.log('cant unOverlap')
 				return false;
-			else if(isEventOverlap(arrayEvent, e)){
-				e = unOverlap(arrayEvent, e);
-				if(isEventOverlap(arrayEvent, e) ){
-					console.log('cant unOverlap')
-					return false;
-				}
 			}
 			return true;
 		}
@@ -254,12 +251,12 @@
 		$(function() {
 			$( "#catalog" ).accordion();
 			
-			$('#catalog li').each(function() {
+			$('#catalog .live-tile').each(function() {
 			
 				// create an Event Object (http://arshaw.com/fullcalendar/docs/event_data/Event_Object/)
 				// it doesn't need to have a start or end
 				var eventObject = {
-					title: $.trim($(this).text()), // use the element's text as the event title
+					title: $.trim($(this).attr("title")), // use the element's text as the event title
 					id: $(this).attr("event_id"),
 					duration: parseInt($(this).attr("activity_duration_hour"))*60 + parseInt($(this).attr("activity_duration_min")),
 					allDay: false,
@@ -303,6 +300,8 @@
 		        }
 		    });
 			
+			$(".live-tile").liveTile({pauseOnHover: true});
+			
 			$('#calendar').fullCalendar({
 				header: {
 					left: 'title',
@@ -342,9 +341,6 @@
 						    if(sameDayEvents.length != 0){
 							    if(isEventOverlap(sameDayEvents, copiedEventObject)){
 							    	copiedEventObject = unOverlap(sameDayEvents, copiedEventObject);
-							    	if(isEventOverlap(sameDayEvents, copiedEventObject)){
-							    		copiedEventObject = unOverlap(sameDayEvents, copiedEventObject);
-							    	}
 							    }
 								
 
@@ -388,6 +384,7 @@
 			                        $('#calendar').fullCalendar( 'renderEvent', event_t_before, true );
 
 									gmaps_url = "http://maps.googleapis.com/maps/api/directions/json?origin="+encodeURIComponent(from)+",Singapore&destination="+encodeURIComponent(to)+",Singapore&sensor=false&mode=transit&departure_time=1358548470";
+								   	console.log('google map:' + gmaps_url)
 								   	$.getJSON(gmaps_url,
 									  	function(data) {
 										    duration_g = Math.floor( parseInt(data.routes[0].legs[0].duration.value) / 60);
@@ -531,6 +528,8 @@
 					    
 					    //first case: handle the event before this event
 					    e_before = getPreviousEvent(events_search, event);
+					    
+					    e_t_b = "dummy"; 
 					    if(e_before != null){
 				    		if(isTravelEvent(e_before)){
 				    			$('#calendar').fullCalendar('removeEvents',e_before.id);
@@ -571,6 +570,7 @@
 							    			$('#calendar').fullCalendar('updateEvent', event);
 							    		}
 						    		} 
+						    		e_t_b = event_travel.id;
 						    		$('#calendar').fullCalendar( 'renderEvent', event_travel, true );
 							});
 						}
@@ -615,6 +615,19 @@
 									    			event.end = event_travel.start
 									    			console.log('updating event from overlap with travel in after')
 								    				$('#calendar').fullCalendar('updateEvent', event);
+
+								    				/*if(e_before != null){
+								    					e_b_t = $('#calendar').fullCalendar('clientEvents',function(event_s) {
+											                return (event_s.start.getDate() == curdate.getDate() && event_s.id == e_t_b);
+											            });
+											            if(e_b_t.length != 0){
+											            	console.log(e_b_t)
+												            e_b_t.start = addMinutes(e_b_t.start, (duration - gap_minute) * -1);
+												            e_b_t.end = event.start
+											            
+							    							$('#calendar').fullCalendar( 'updateEvent', e_b_t );
+							    						}
+								    				}*/
 								    			}
 								    			else 
 								    				console.log('kosong euy')
@@ -690,7 +703,7 @@
 <div class="advsearch leftmenu">
 	<div class="colleft">
 		<div class="result_container">
-			<div id="map_container" style="position:absolute;z-index:3;background:#abc;padding:10px;display:none">
+			<div id="map_container" style="position:absolute;z-index:999;background:#abc;padding:10px;display:none">
         		<div id="map" style="width:500px;height:500px;margin-right:20px;float:left;"></div>
         		<div id="panel" style="width:300px; height:500px;float:left;"></div>
     
@@ -701,26 +714,79 @@
                 <div id="catalog">
                     <h2><a href="#">City tour</a></h2>
                     <div>
-                        <ul>
-                            <li event_id="238863" activity_duration_hour="1" activity_duration_min="30">Orchard Road</li>
-                            <li event_id="619795" activity_duration_hour="3" activity_duration_min="30">Chinese Garden</li>
-                            <li event_id="168732" activity_duration_hour="1" activity_duration_min="30">Tiong Bahru Plaza</li>
-                        </ul>
+                        	<div id="tile2" class="live-tile blue" data-stack="true" data-delay="-1" data-initdelay="-1" event_id="238863" activity_duration_hour="1" activity_duration_min="30" title="Orchard Road">
+                                <span class="tile-title">Orchard Road</span>
+                                <div><img class="full" src="../Content/images/photo/habibi.jpg"/></div>
+                                <div>
+                                    <p class="full">I like to do travelling to the village and enjoy the best from nature. <br/><br/> I can give you special price to go around the urban area of Malaysia</p>
+                                </div>
+                            </div>
+                            <div id="tile2" class="live-tile blue" data-delay="-1" data-initdelay="-1" data-mode="flip" event_id="619795" activity_duration_hour="3" activity_duration_min="30" title="Chinese Garden">    
+                                <span class="tile-title">Chinese Garden</span>
+                                <div><img class="full" src="../Content/images/photo/budi.jpg"/></div>
+                                <div>
+                                    <p class="full">I'm the best at culinary travel. <br/><br/>Enjoy a rare traditional Malay culinary while having a nice backpacking time.</p>
+                                </div>
+                            </div>
+                            <div id="tile2" class="live-tile blue" data-delay="-1" data-initdelay="-1" data-mode="flip" event_id="168732" activity_duration_hour="1" activity_duration_min="30" title="Tiong Bahru Plaza">    
+                                <span class="tile-title">Tiong Bahru Plaza</span>
+                                <div><img class="full" src="../Content/images/photo/budi.jpg"/></div>
+                                <div>
+                                    <p class="full">I'm the best at culinary travel. <br/><br/>Enjoy a rare traditional Malay culinary while having a nice backpacking time.</p>
+                                </div>
+                            </div>
+                        
                     </div>
                     <h2><a href="#">Beach Activities</a></h2>
                     <div>
                         <ul>
-                            <li event_id="018956" activity_duration_hour="3" activity_duration_min="30">Marina Bay Sands</li>
-                            <li event_id="098588" activity_duration_hour="3" activity_duration_min="30">Sentosa Island</li>
-                            <li event_id="049835" activity_duration_hour="5" activity_duration_min="30">Boat Quay</li>
+                            <div id="tile2" class="live-tile blue" data-delay="-1" data-initdelay="-1" data-mode="flip" event_id="018956" activity_duration_hour="3" activity_duration_min="30" title="Marina Bay Sands">    
+                                <span class="tile-title">Marina Bay Sands</span>
+                                <div><img class="full" src="../Content/images/photo/budi.jpg"/></div>
+                                <div>
+                                    <p class="full">I'm the best at culinary travel. <br/><br/>Enjoy a rare traditional Malay culinary while having a nice backpacking time.</p>
+                                </div>
+                            </div>
+                            <div id="tile2" class="live-tile blue" data-delay="-1" data-initdelay="-1" data-mode="flip" event_id="098588" activity_duration_hour="3" activity_duration_min="30" title="Sentosa Island">    
+                                <span class="tile-title">Sentosa Island</span>
+                                <div><img class="full" src="../Content/images/photo/budi.jpg"/></div>
+                                <div>
+                                    <p class="full">I'm the best at culinary travel. <br/><br/>Enjoy a rare traditional Malay culinary while having a nice backpacking time.</p>
+                                </div>
+                            </div>
+                            <div id="tile2" class="live-tile blue" data-delay="-1" data-initdelay="-1" data-mode="flip" event_id="049835" activity_duration_hour="5" activity_duration_min="30" title="Boat Quay">    
+                                <span class="tile-title">Boat Quay</span>
+                                <div><img class="full" src="../Content/images/photo/budi.jpg"/></div>
+                                <div>
+                                    <p class="full">I'm the best at culinary travel. <br/><br/>Enjoy a rare traditional Malay culinary while having a nice backpacking time.</p>
+                                </div>
+                            </div>
                         </ul>
                     </div>
                     <h2><a href="#">Night Activities</a></h2>
                     <div>
                         <ul>
-                            <li event_id="049178" activity_duration_hour="1" activity_duration_min="30">Fullerton Hotel</li>
-                            <li event_id="098585" activity_duration_hour="2" activity_duration_min="30">Vivo City</li>
-                            <li event_id="059815" activity_duration_hour="2" activity_duration_min="30">Clarke Quay</li>
+                            <div id="tile2" class="live-tile blue" data-delay="-1" data-initdelay="-1" data-mode="flip" event_id="049178" activity_duration_hour="1" activity_duration_min="30" title="Fullerton Hotel">    
+                                <span class="tile-title">Fullerton Hotel</span>
+                                <div><img class="full" src="../Content/images/photo/budi.jpg"/></div>
+                                <div>
+                                    <p class="full">I'm the best at culinary travel. <br/><br/>Enjoy a rare traditional Malay culinary while having a nice backpacking time.</p>
+                                </div>
+                            </div>
+                            <div id="tile2" class="live-tile blue" data-delay="-1" data-initdelay="-1" data-mode="flip" event_id="098585" activity_duration_hour="2" activity_duration_min="30" title="Vivo City">    
+                                <span class="tile-title">Vivo City</span>
+                                <div><img class="full" src="../Content/images/photo/budi.jpg"/></div>
+                                <div>
+                                    <p class="full">I'm the best at culinary travel. <br/><br/>Enjoy a rare traditional Malay culinary while having a nice backpacking time.</p>
+                                </div>
+                            </div>
+                            <div id="tile2" class="live-tile blue" data-delay="-1" data-initdelay="-1" data-mode="flip" event_id="059815" activity_duration_hour="2" activity_duration_min="30" title="Clarke Quay">    
+                                <span class="tile-title">Clarke Quay</span>
+                                <div><img class="full" src="../Content/images/photo/budi.jpg"/></div>
+                                <div>
+                                    <p class="full">I'm the best at culinary travel. <br/><br/>Enjoy a rare traditional Malay culinary while having a nice backpacking time.</p>
+                                </div>
+                            </div>
                         </ul>
                     </div>
                 </div>
