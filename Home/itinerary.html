@@ -15,6 +15,12 @@
 	<script type="text/javascript" src="../Scripts/index/metrojs.js"></script>
     
     <style>
+    	/*style for cover*/
+    	#browse_days_tip{position: absolute;left:145px;top:70px;}
+    	#schedule_tip{position: absolute;left:340px;top:210px;}
+    	#daily_routes_tip{position: absolute;left:250px;top:400px;}
+    	#refine_tools_tip{position: absolute;left:72px;top:220px;}
+    	#start_plnnring_button{position: absolute; left:325px;bottom:20px;};
 		h1 { padding: .2em; margin: 0; }
 		#products { float:left; width: 90%; margin-right: 2em; }
 		#cart { width: 200px; float: left; margin-top: 1em; }
@@ -33,6 +39,20 @@
 		#calendar {
 			width: 300px;
 			margin: 0 auto;
+		}
+
+		#cover {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			z-index: 10;
+			display: none;
+			z-index:999;
+			background-color: #ffffff;
+			opacity: .7;
+			filter:progid:DXImageTransform.Microsoft.BasicImage(opacity=.7);
 		}
     </style>
 	<link rel="stylesheet" type="text/css" href="../content/css/index/metrojs.css"/>
@@ -249,6 +269,10 @@
 		}
 		
 		$(function() {
+			$("#cover").show();
+			$("#cover").click(function(){
+				$("#cover").hide();
+			});
 			$( "#catalog" ).accordion();
 			
 			$('#catalog .live-tile').each(function() {
@@ -272,7 +296,7 @@
 					appendTo: "body",
 					helper: "clone",
 					
-					zIndex: 999,
+					zIndex: 998,
 					revert: true,      // will cause the event to go back to its
 					revertDuration: 0,  //  original position after the drag
 				
@@ -383,12 +407,17 @@
 							    
 			                        $('#calendar').fullCalendar( 'renderEvent', event_t_before, true );
 
-									gmaps_url = "http://maps.googleapis.com/maps/api/directions/json?origin="+encodeURIComponent(from)+",Singapore&destination="+encodeURIComponent(to)+",Singapore&sensor=false&mode=transit&departure_time=1358548470";
+									gmaps_url = "http://maps.googleapis.com/maps/api/directions/json?origin="+encodeURIComponent(from)+",Singapore&destination="+encodeURIComponent(to)+",Singapore&sensor=false&mode=transit&departure_time="+Math.floor(new Date().getTime()/1000);
 								   	console.log('google map:' + gmaps_url)
 								   	$.getJSON(gmaps_url,
 									  	function(data) {
-										    duration_g = Math.floor( parseInt(data.routes[0].legs[0].duration.value) / 60);
-										    duration_g_text = data.routes[0].legs[0].duration.text;
+									  		if(data.routes.length > 0){
+											    duration_g = Math.floor( parseInt(data.routes[0].legs[0].duration.value) / 60);
+											    duration_g_text = data.routes[0].legs[0].duration.text;
+											}else{
+												duration_g = 30
+												duration_g_text = "Can't get estimated time"
+											}
 										    event_t_before.end = addMinutes(e_before.end, duration_g);
 										   	event_t_before.title = "Travel [" +duration_g_text+ "]. Click for details!"
 							                            
@@ -419,11 +448,16 @@
 			                            color: "#000000"
 			                        }
 								    $('#calendar').fullCalendar( 'renderEvent', event_t_after, true );
-									gmaps_url = "http://maps.googleapis.com/maps/api/directions/json?origin="+encodeURIComponent(from)+",Singapore&destination="+encodeURIComponent(to)+",Singapore&sensor=false&mode=transit&departure_time=1358548470";
+									gmaps_url = "http://maps.googleapis.com/maps/api/directions/json?origin="+encodeURIComponent(from)+",Singapore&destination="+encodeURIComponent(to)+",Singapore&sensor=false&mode=transit&departure_time="+Math.floor(new Date().getTime()/1000);
 								   	$.getJSON(gmaps_url,
 									  	function(data) {
-										    duration_g = Math.floor( parseInt(data.routes[0].legs[0].duration.value) / 60);
-										    duration_g_text = data.routes[0].legs[0].duration.text;
+										    if(data.routes.length > 0){
+											    duration_g = Math.floor( parseInt(data.routes[0].legs[0].duration.value) / 60);
+											    duration_g_text = data.routes[0].legs[0].duration.text;
+											}else{
+												duration_g = 30
+												duration_g_text = "Can't get estimated time"
+											}
 										    event_t_after.start = addMinutes(e_after.start, -1 * duration_g);
 									   		event_t_after.title = "Travel [" +duration_g_text+ "]. Click for details!"
 						                	$('#calendar').fullCalendar( 'updateEvent', event_t_after );
@@ -499,11 +533,16 @@
 							if(ori_prev_event != null && ori_next_event != null && next_event.id != ori_next_event.id && prev_event.id != ori_prev_event.id){
 								from = ori_prev_event.title;
 					    		to = ori_next_event.title;
-					    		gmaps_url = "http://maps.googleapis.com/maps/api/directions/json?origin="+encodeURIComponent(from)+",Singapore&destination="+encodeURIComponent(to)+",Singapore&sensor=false&mode=transit&departure_time=1358548470";
+					    		gmaps_url = "http://maps.googleapis.com/maps/api/directions/json?origin="+encodeURIComponent(from)+",Singapore&destination="+encodeURIComponent(to)+",Singapore&sensor=false&mode=transit&departure_time="+Math.floor(new Date().getTime()/1000);
 								$.getJSON(gmaps_url,
 								  	function(data) {
-									    duration = Math.floor( parseInt(data.routes[0].legs[0].duration.value) / 60);
-									    duration_text = data.routes[0].legs[0].duration.text;
+									    if(data.routes.length > 0){
+										    duration = Math.floor( parseInt(data.routes[0].legs[0].duration.value) / 60);
+										    duration_text = data.routes[0].legs[0].duration.text;
+										}else{
+											duration = 30
+											duration_text = "Can't get estimated time"
+										}
 									    
 									    event_travel = {
 					                            id : getTimestamp() + "_transport",
@@ -540,12 +579,16 @@
 				    		}
 				    		from = e_before.title;
 				    		to = event.title;
-			    			gmaps_url = "http://maps.googleapis.com/maps/api/directions/json?origin="+encodeURIComponent(from)+",Singapore&destination="+encodeURIComponent(to)+",Singapore&sensor=false&mode=transit&departure_time=1358548470";
+			    			gmaps_url = "http://maps.googleapis.com/maps/api/directions/json?origin="+encodeURIComponent(from)+",Singapore&destination="+encodeURIComponent(to)+",Singapore&sensor=false&mode=transit&departure_time="+Math.floor(new Date().getTime()/1000);
 							$.getJSON(gmaps_url,
 							  	function(data) {
-								    duration = Math.floor( parseInt(data.routes[0].legs[0].duration.value) / 60);
-								    duration_text = data.routes[0].legs[0].duration.text;
-								    
+								    if(data.routes.length > 0){
+									    duration = Math.floor( parseInt(data.routes[0].legs[0].duration.value) / 60);
+									    duration_text = data.routes[0].legs[0].duration.text;
+									}else{
+										duration = 30
+										duration_text = "Can't get estimated time"
+									}
 								    start_date_t = addMinutes(event.start, -1 * duration);
 								    event_travel = {
 				                            id : getTimestamp() + "_transport",
@@ -588,13 +631,17 @@
 				    		if(e_after != null){
 					    		from = event.title;
 					    		to = e_after.title;
-				    				gmaps_url = "http://maps.googleapis.com/maps/api/directions/json?origin="+encodeURIComponent(from)+",Singapore&destination="+encodeURIComponent(to)+",Singapore&sensor=false&mode=transit&departure_time=1358548470";
+				    				gmaps_url = "http://maps.googleapis.com/maps/api/directions/json?origin="+encodeURIComponent(from)+",Singapore&destination="+encodeURIComponent(to)+",Singapore&sensor=false&mode=transit&departure_time="+Math.floor(new Date().getTime()/1000);
 								   	
 								   	$.getJSON(gmaps_url,
 									  	function(data) {
-										    duration = Math.floor( parseInt(data.routes[0].legs[0].duration.value) / 60);
-										    duration_text = data.routes[0].legs[0].duration.text;
-										    end_date_t = addMinutes(event.end, duration);
+										    if(data.routes.length > 0){
+											    duration = Math.floor( parseInt(data.routes[0].legs[0].duration.value) / 60);
+											    duration_text = data.routes[0].legs[0].duration.text;
+											}else{
+												duration = 30
+												duration_text = "Can't get estimated time"
+											}end_date_t = addMinutes(event.end, duration);
 										    event_travel = {
 						                            id : getTimestamp() + "_transport",
 						                            title : "Travel ["+duration_text+"]. Click for details!",
@@ -684,6 +731,13 @@
 
 </head>
 <body>
+<div id="cover">
+	<img src="http://plnnr.com/static/images/applanding/browse_days.png" id="browse_days_tip" />
+    <img src="http://plnnr.com/static/images/applanding/schedule.png" id="schedule_tip" />
+    <img src="http://plnnr.com/static/images/applanding/routes.png" id="daily_routes_tip" />
+    <img src="http://plnnr.com/static/images/applanding/refine.png" id="refine_tools_tip" />
+    <img src="http://plnnr.com/static/images/applanding/start_plnnring.png" id="start_plnnring_button" />
+</div>
 
 <div id="header_top">
 	<div class="container">
@@ -703,7 +757,7 @@
 <div class="advsearch leftmenu">
 	<div class="colleft">
 		<div class="result_container">
-			<div id="map_container" style="position:absolute;z-index:999;background:#abc;padding:10px;display:none">
+			<div id="map_container" style="position:absolute;z-index:990;background:#abc;padding:10px;display:none">
         		<div id="map" style="width:500px;height:500px;margin-right:20px;float:left;"></div>
         		<div id="panel" style="width:300px; height:500px;float:left;"></div>
     
