@@ -4,7 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>
     <title>Getourguide</title>
     <link rel="stylesheet" type="text/css" href="../Content/css/itinerary/style2.css"/>
-	<link rel="stylesheet" type="text/css" href="../Content/css/itinerary/jquery-ui.css" />
+	<link rel="stylesheet" type="text/css" href="../Content/css/itinerary/humanity/jquery-ui-1.10.0.custom.css" />
     <script src="../Scripts/itinerary/jquery-1.8.2.js"></script>
     <script src="../Scripts/itinerary/jquery-ui.js"></script>
     <link rel="shortcut icon" href="https://a2.muscache.com/airbnb/static/logotype_favicon-6ba9bbe6f8ca077e990ca287d87b10b5.ico">
@@ -296,7 +296,7 @@
 					appendTo: "body",
 					helper: "clone",
 					
-					zIndex: 998,
+					zIndex: 990,
 					revert: true,      // will cause the event to go back to its
 					revertDuration: 0,  //  original position after the drag
 				
@@ -340,6 +340,7 @@
 				maxTime:24,
 				slotMinutes: 30,
 				events: [],
+				theme: true,
 				selectHelper: true,
 				droppable: true, // this allows things to be dropped onto the calendar !!!
 				drop: function(date, allDay) { // this function is called when something is dropped
@@ -351,6 +352,7 @@
 					
 					// assign it the date that was reported
 					copiedEventObject.start = date;
+					copiedEventObject.id = curdate.getTime() + '_' + copiedEventObject.id;
 					copiedEventObject.end = addMinutes(date, copiedEventObject.duration)
 					copiedEventObject.allDay = allDay;
 					
@@ -757,7 +759,7 @@
 <div class="advsearch leftmenu">
 	<div class="colleft">
 		<div class="result_container">
-			<div id="map_container" style="position:absolute;z-index:990;background:#abc;padding:10px;display:none">
+			<div id="map_container" style="position:absolute;z-index:998;background:#abc;padding:10px;display:none">
         		<div id="map" style="width:500px;height:500px;margin-right:20px;float:left;"></div>
         		<div id="panel" style="width:300px; height:500px;float:left;"></div>
     
