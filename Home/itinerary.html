@@ -282,6 +282,7 @@
 				var eventObject = {
 					title: $.trim($(this).attr("title")), // use the element's text as the event title
 					id: $(this).attr("event_id"),
+					event_id: $(this).attr("event_id"),
 					duration: parseInt($(this).attr("activity_duration_hour"))*60 + parseInt($(this).attr("activity_duration_min")),
 					allDay: false,
 					type: 'venue',
@@ -693,9 +694,9 @@
                 		e_all = $('#calendar').fullCalendar('clientEvents',function(event_s) {
 			                return event_s.start.getDate() == curdate.getDate();
 			            })
-			            from = getPreviousEvent(e_all, event).id;
+			            from = getPreviousEvent(e_all, event).event_id;
 			    		
-                		to = getNextEvent(e_all, event).id;
+                		to = getNextEvent(e_all, event).event_id;
 
 			            directions.load("from: "+from+" to: " + to, {travelMode: G_TRAVEL_MODE_TRANSIT});
 			        	$("#map_container").fadeIn("slow");
