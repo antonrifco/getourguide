@@ -139,6 +139,14 @@ background-image: -webkit-gradient(
 
 #city { font-size: 30px; font-weight: bold; color:#133; margin-bottom:15px; margin-top:15px}
 
+.live-tile {
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	-moz-box-shadow: 5px 5px 5px black;
+	-webkit-box-shadow: 5px 5px 5px black;
+	box-shadow: 5px 5px 5px black;
+}
+
 /* isotop filtering */
 .isotope-item {
   z-index: 2;

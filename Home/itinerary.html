@@ -277,22 +277,6 @@
 			});
 
 
-			$('#catalog .live-tile').tooltip({
-				content: "Drag me to Itinerary...",
-			    position: {
-			        my: "center bottom-20",
-			        at: "center top",
-			        using: function( position, feedback ) {
-			          $( this ).css( position );
-			          $( "<div>" )
-			            .addClass( "arrow" )
-			            .addClass( feedback.vertical )
-			            .addClass( feedback.horizontal )
-			            .appendTo( this );
-			        }
-			    }
-		    });
-			
 			$('#catalog .live-tile').each(function() {
 			
 				// create an Event Object (http://arshaw.com/fullcalendar/docs/event_data/Event_Object/)
@@ -310,10 +294,33 @@
 				// store the Event Object in the DOM element so we can get to it later
 				$(this).data('eventObject', eventObject);
 				
-				// make the event draggable using jQuery UI
+				$(this).tooltip({
+					content: "Drag me to Itinerary...",
+				    position: {
+				        my: "center bottom-20",
+				        at: "center top",
+				        using: function( position, feedback ) {
+				          $( this ).css( position );
+				          $( "<div>" )
+				            .addClass( "arrow" )
+				            .addClass( feedback.vertical )
+				            .addClass( feedback.horizontal )
+				            .appendTo( this );
+				        }
+				    }
+			    });
+
+			   	// make the event draggable using jQuery UI
 				$(this).draggable({
+
 					appendTo: "body",
-					helper: "clone",
+					helper: function(event) {
+						j = jQuery($(this));
+						drag = j.find("img").clone().css('width','120px');
+						drag.css('height','120px');
+	                    
+	                    return drag;
+	                },
 					scroll: true,
 					zIndex: 990,
 					revert: true,      // will cause the event to go back to its
@@ -322,12 +329,12 @@
 					cursorAt: { top: 55, left: 55 },
 					// once the dragging starts, we decrease the opactiy of other items
 					// Appending a class as we do that with CSS
-					drag:function () {
+					start:function (event, ui) {
 						$(this).addClass("active");
 						$(this).closest("#catalog").addClass("active");
 					},
 					// removing the CSS classes once dragging is over.
-					stop:function () {
+					stop:function (event, ui) {
 						$(this).removeClass("active").closest("#catalog").removeClass("active");
 					}
 			        
@@ -363,6 +370,112 @@
 				theme: true,
 				selectHelper: true,
 				droppable: true, // this allows things to be dropped onto the calendar !!!
+				eventAfterRender: function(event, element) {
+					element.tooltip({
+						content: (event.type == 'travel')?'Travel time':'One click venue to get details. and Double click to remove from your itinerary!',
+					    position: {
+					        my: "center bottom-20",
+					        at: "center top",
+					        using: function( position, feedback ) {
+					          $( this ).css( position );
+					          $( "<div>" )
+					            .addClass( "arrow" )
+					            .addClass( feedback.vertical )
+					            .addClass( feedback.horizontal )
+					            .appendTo( this );
+					        }
+					    }
+				    }),
+					element.bind('dblclick', function() {
+				        console.log(event);
+				        if(event.type == 'travel')
+				        	return false;
+
+						//remove event reconstruct travel event
+						$( window ).attr('title','Are you sure to delete <br/>\'' + event.title + '\'?').dialog({
+						    resizable: false,
+						    height:140,
+						    modal: true,
+				            buttons: {
+				                'Delete all items': function() {
+				                    events_search = $('#calendar').fullCalendar('clientEvents',function(event_s) {
+							                return event_s.start.getDate() == curdate.getDate();
+							            });
+							        original_event = $.extend({}, event);
+								    ori_prev_event_t = getPreviousEvent(events_search, original_event);
+									ori_next_event_t = getNextEvent(events_search, original_event);
+									console.log('bazinga')
+									del_bef = false; del_af = false;
+									if(ori_prev_event_t != null && isTravelEvent(ori_prev_event_t)){
+										console.log('removing travel before:' + ori_prev_event_t.id)
+										del_bef = true;
+										$('#calendar').fullCalendar('removeEvents',ori_prev_event_t.id);
+										events_search = $('#calendar').fullCalendar('clientEvents',function(event_s) {
+							                return event_s.start.getDate() == curdate.getDate();
+							            });
+								    }
+								    if(ori_next_event_t != null && isTravelEvent(ori_next_event_t)){
+										console.log('removing travel after:' + ori_next_event_t.id)
+										del_af = true;
+										$('#calendar').fullCalendar('removeEvents',ori_next_event_t.id);
+
+										events_search = $('#calendar').fullCalendar('clientEvents',function(event_s) {
+							                return event_s.start.getDate() == curdate.getDate();
+							            });
+								    }
+
+								    if(del_af || del_bef){
+								    	ori_prev_event = getPreviousEventNotTravel(events_search, original_event);
+										prev_event = getPreviousEventNotTravel(events_search, event);
+										ori_next_event = getNextEventNotTravel(events_search, original_event);
+										next_event = getNextEventNotTravel(events_search, event);
+										if(prev_event == null) next_event = {id: "dummy"}
+										if(next_event == null) next_event = {id: "dummy"}
+										if(ori_prev_event != null && ori_next_event != null && next_event.id != ori_next_event.id && prev_event.id != ori_prev_event.id){
+											from = ori_prev_event.title;
+								    		to = ori_next_event.title;
+								    		gmaps_url = "http://maps.googleapis.com/maps/api/directions/json?origin="+encodeURIComponent(from)+",Singapore&destination="+encodeURIComponent(to)+",Singapore&sensor=false&mode=transit&departure_time="+Math.floor(new Date().getTime()/1000);
+											$.getJSON(gmaps_url,
+											  	function(data) {
+												    if(data.routes.length > 0){
+													    duration = Math.floor( parseInt(data.routes[0].legs[0].duration.value) / 60);
+													    duration_text = data.routes[0].legs[0].duration.text;
+													}else{
+														duration = 30
+														duration_text = "Can't get estimated time"
+													}
+												    
+												    event_travel = {
+								                            id : getTimestamp() + "_transport",
+								                            title : "Travel ["+duration_text+"]. Click for details!",
+								                            start : ori_prev_event.end,
+								                            end   : addMinutes(ori_prev_event.end, duration),
+								                            type: 'travel',
+								                            duration: duration,
+						                            		allDay: false,
+								                            editable: false,
+								                            color: "#000000"
+								                        }
+												    
+										    		$('#calendar').fullCalendar( 'renderEvent', event_travel, true );
+										    		events_search = $('#calendar').fullCalendar('clientEvents',function(event_s) {
+										                return event_s.start.getDate() == curdate.getDate();
+										            });
+											});
+										}
+								    }
+
+							        $('#calendar').fullCalendar( 'removeEvents', event.id );
+
+				                    $(this).dialog('close');
+				                },
+				                Cancel: function() {
+				                    $(this).dialog('close');
+				                }
+				            }
+				        });
+				    });
+				},
 				drop: function(date, allDay) { // this function is called when something is dropped
 			
 					// retrieve the dropped element's stored Event Object
@@ -466,7 +579,7 @@
 			                            end   : e_after.start,
 			                            allDay: false,
 			                            type: 'travel',
-		                            	editable: false,
+			                            editable: false,
 			                            color: "#000000"
 			                        }
 								    $('#calendar').fullCalendar( 'renderEvent', event_t_after, true );
@@ -572,6 +685,7 @@
 					                            start : ori_prev_event.end,
 					                            end   : addMinutes(ori_prev_event.end, duration),
 					                            type: 'travel',
+					                            duration: duration,
 			                            		allDay: false,
 					                            editable: false,
 					                            color: "#000000"
@@ -618,6 +732,7 @@
 				                            start : start_date_t,
 				                            end   : event.start,
 				                            type: 'travel',
+				                            duration: duration,
 		                            		allDay: false,
 				                            editable: false,
 				                            color: "#000000"
@@ -670,6 +785,7 @@
 						                            start : event.end,
 						                            end   : end_date_t,
 						                            type: 'travel',
+						                            duration: duration,
 			                            			allDay: false,
 						                            editable: false,
 						                            color: "#000000"
