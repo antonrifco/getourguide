@@ -3,8 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>
     <title>Getourguide</title>
-    <link rel="stylesheet" type="text/css" href="../Content/css/itinerary/style2.css"/>
-	<link rel="stylesheet" type="text/css" href="../Content/css/itinerary/humanity/jquery-ui-1.10.0.custom.css" />
+    <link rel="stylesheet" type="text/css" href="../Content/css/itinerary/humanity/jquery-ui-1.10.0.custom.css" />
     <script src="../Scripts/itinerary/jquery-1.8.2.js"></script>
     <script src="../Scripts/itinerary/jquery-ui.js"></script>
     <link rel="shortcut icon" href="https://a2.muscache.com/airbnb/static/logotype_favicon-6ba9bbe6f8ca077e990ca287d87b10b5.ico">
@@ -12,8 +11,11 @@
     <link rel="stylesheet" type="text/css" href="../Content/css/itinerary/fullcalendar.css">
     <link rel="stylesheet" type="text/css" href="../Content/css/itinerary/fullcalendar.print.css" media="print">
     <script type="text/javascript" src="../Scripts/itinerary/fullcalendar.min.js"></script>
+	<script type="text/javascript" src="../Scripts/itinerary/jquery.isotope.js"></script>
 	<script type="text/javascript" src="../Scripts/index/metrojs.js"></script>
-    
+    <link rel="stylesheet" type="text/css" href="../content/css/itinerary/metrojs.css"/>
+    <link rel="stylesheet" type="text/css" href="../Content/css/itinerary/style2.css"/>
+	
     <style>
     	/*style for cover*/
     	#browse_days_tip{position: absolute;left:145px;top:70px;}
@@ -55,8 +57,7 @@
 			filter:progid:DXImageTransform.Microsoft.BasicImage(opacity=.7);
 		}
     </style>
-	<link rel="stylesheet" type="text/css" href="../content/css/index/metrojs.css"/>
-    <script type="text/javascript" src="http://gothere.sg/jsapi?sensor=false"></script>
+	<script type="text/javascript" src="http://gothere.sg/jsapi?sensor=false"></script>
     <script>
     	var curdate = new Date()
 		var TODAY = new Date()
@@ -274,7 +275,23 @@
 			$("#cover").click(function(){
 				$("#cover").hide();
 			});
-			$( "#catalog" ).accordion();
+
+
+			$('#catalog .live-tile').tooltip({
+				content: "Drag me to Itinerary...",
+			    position: {
+			        my: "center bottom-20",
+			        at: "center top",
+			        using: function( position, feedback ) {
+			          $( this ).css( position );
+			          $( "<div>" )
+			            .addClass( "arrow" )
+			            .addClass( feedback.vertical )
+			            .addClass( feedback.horizontal )
+			            .appendTo( this );
+			        }
+			    }
+		    });
 			
 			$('#catalog .live-tile').each(function() {
 			
@@ -297,11 +314,12 @@
 				$(this).draggable({
 					appendTo: "body",
 					helper: "clone",
-					
+					scroll: true,
 					zIndex: 990,
 					revert: true,      // will cause the event to go back to its
 					revertDuration: 0,  //  original position after the drag
-				
+					cursor: "move", 
+					cursorAt: { top: 55, left: 55 },
 					// once the dragging starts, we decrease the opactiy of other items
 					// Appending a class as we do that with CSS
 					drag:function () {
@@ -743,6 +761,28 @@
 						$("#calendar .fc-button-prev").removeClass("ui-state-disabled");
 				}
 			});
+
+
+			var $container = $('#catalog');
+			$container.isotope({
+			  	// options...
+			  	animationEngine:'best-available'
+			});
+
+			// filter items when filter link is clicked
+			$('#options a').click(function(){
+				// don't proceed if already selected
+		        if ( $(this).hasClass('selected') ) {
+		          	return false;
+		        }
+		        var $optionSet = $(this).parents('.option-set');
+		        $optionSet.find('.selected').removeClass('selected');
+		        $(this).addClass('selected');
+
+			  	var selector = $(this).attr('data-filter');
+			  	$container.isotope({ filter: selector });
+			  	return false;
+			});
 		});
     </script>
 
@@ -781,84 +821,82 @@
 		    </div>
 		    <div id="city">Singapore</div>
         	<div id="products">
-                <h1 class="ui-widget-header">Choice of Activities</h1>
+                <section id="options" class="clearfix">
+				    <ul id="sort-by" class="option-set clearfix" data-option-key="sortBy">
+				      	<li><a href="#" data-filter="*" class="selected" >Show all</a></li>
+				      	<li><a href="#" data-filter=".historical">Historical</a></li>
+				      	<li><a href="#" data-filter=".shopping">Shopping</a></li>
+				      	<li><a href="#" data-filter=".modern">Modern</a></li>
+				    </ul>
+
+				</section> <!-- #options -->
+
                 <div id="catalog">
-                    <h2><a href="#">City tour</a></h2>
-                    <div>
-                        	<div id="tile2" class="live-tile blue" data-stack="true" data-delay="-1" data-initdelay="-1" event_id="238863" activity_duration="90" title="Orchard Road">
-                                <span class="tile-title">Orchard Road</span>
-                                <div><img class="full" src="../Content/images/photo/habibi.jpg"/></div>
-                                <div>
-                                    <p class="full">I like to do travelling to the village and enjoy the best from nature. <br/><br/> I can give you special price to go around the urban area of Malaysia</p>
-                                </div>
-                            </div>
-                            <div id="tile2" class="live-tile blue" data-delay="-1" data-initdelay="-1" data-mode="flip" event_id="619795" activity_duration="210" title="Chinese Garden">    
-                                <span class="tile-title">Chinese Garden</span>
-                                <div><img class="full" src="../Content/images/photo/budi.jpg"/></div>
-                                <div>
-                                    <p class="full">I'm the best at culinary travel. <br/><br/>Enjoy a rare traditional Malay culinary while having a nice backpacking time.</p>
-                                </div>
-                            </div>
-                            <div id="tile2" class="live-tile blue" data-delay="-1" data-initdelay="-1" data-mode="flip" event_id="168732" activity_duration="90" title="Tiong Bahru Plaza">    
-                                <span class="tile-title">Tiong Bahru Plaza</span>
-                                <div><img class="full" src="../Content/images/photo/budi.jpg"/></div>
-                                <div>
-                                    <p class="full">I'm the best at culinary travel. <br/><br/>Enjoy a rare traditional Malay culinary while having a nice backpacking time.</p>
-                                </div>
-                            </div>
+                    
+                	<div class="live-tile magenta shopping" data-delay="-1" data-initdelay="-1" event_id="238863" activity_duration="90" title="Orchard Road">
+                        <span class="tile-title">Orchard Road</span>
+                        <div><img class="full" src="../Content/images/photo/habibi.jpg"/></div>
+                        <div>
+                            <p class="full">I like to do travelling to the village and enjoy the best from nature.</p>
+                        </div>
+                    </div>
+                    <div class="live-tile blue historical" data-delay="-1" data-initdelay="-1" data-mode="flip" event_id="619795" activity_duration="210" title="Chinese Garden">    
+                        <span class="tile-title">Chinese Garden</span>
+                        <div><img class="full" src="../Content/images/photo/budi.jpg"/></div>
+                        <div>
+                            <p class="full">Enjoy a rare traditional Malay culinary while having a nice backpacking time.</p>
+                        </div>
+                    </div>
+                    <div class="live-tile red shopping" data-delay="-1" data-initdelay="-1" data-mode="flip" event_id="168732" activity_duration="90" title="Tiong Bahru Plaza">    
+                        <span class="tile-title">Tiong Bahru Plaza</span>
+                        <div><img class="full" src="../Content/images/photo/budi.jpg"/></div>
+                        <div>
+                            <p class="full">Enjoy a rare traditional Malay culinary while having a nice backpacking time.</p>
+                        </div>
+                    </div>
                         
+                    <div class="live-tile teal modern" data-delay="-1" data-initdelay="-1" data-mode="flip" event_id="018956" activity_duration="120" title="Marina Bay Sands">    
+                        <span class="tile-title">Marina Bay Sands</span>
+                        <div><img class="full" src="../Content/images/photo/budi.jpg"/></div>
+                        <div>
+                            <p class="full">Enjoy a rare traditional Malay culinary while having a nice backpacking time.</p>
+                        </div>
                     </div>
-                    <h2><a href="#">Beach Activities</a></h2>
-                    <div>
-                        <ul>
-                            <div id="tile2" class="live-tile blue" data-delay="-1" data-initdelay="-1" data-mode="flip" event_id="018956" activity_duration="120" title="Marina Bay Sands">    
-                                <span class="tile-title">Marina Bay Sands</span>
-                                <div><img class="full" src="../Content/images/photo/budi.jpg"/></div>
-                                <div>
-                                    <p class="full">I'm the best at culinary travel. <br/><br/>Enjoy a rare traditional Malay culinary while having a nice backpacking time.</p>
-                                </div>
-                            </div>
-                            <div id="tile2" class="live-tile blue" data-delay="-1" data-initdelay="-1" data-mode="flip" event_id="098588" activity_duration="90" title="Sentosa Island">    
-                                <span class="tile-title">Sentosa Island</span>
-                                <div><img class="full" src="../Content/images/photo/budi.jpg"/></div>
-                                <div>
-                                    <p class="full">I'm the best at culinary travel. <br/><br/>Enjoy a rare traditional Malay culinary while having a nice backpacking time.</p>
-                                </div>
-                            </div>
-                            <div id="tile2" class="live-tile blue" data-delay="100" data-initdelay="100" data-mode="flip" event_id="049835" activity_duration="300" title="Boat Quay">    
-                                <span class="tile-title">Boat Quay</span>
-                                <div><img class="full" src="../Content/images/photo/budi.jpg"/></div>
-                                <div>
-                                    <p class="full">I'm the best at culinary travel. <br/><br/>Enjoy a rare traditional Malay culinary while having a nice backpacking time.</p>
-                                </div>
-                            </div>
-                        </ul>
+                    <div class="live-tile brown modern" data-delay="-1" data-initdelay="-1" data-mode="flip" event_id="098588" activity_duration="90" title="Sentosa Island">    
+                        <span class="tile-title">Sentosa Island</span>
+                        <div><img class="full" src="../Content/images/photo/budi.jpg"/></div>
+                        <div>
+                            <p class="full">Enjoy a rare traditional Malay culinary while having a nice backpacking time.</p>
+                        </div>
                     </div>
-                    <h2><a href="#">Night Activities</a></h2>
-                    <div>
-                        <ul>
-                            <div id="tile2" class="live-tile blue" data-delay="-1" data-initdelay="-1" data-mode="flip" event_id="049178" activity_duration="60" title="Fullerton Hotel">    
-                                <span class="tile-title">Fullerton Hotel</span>
-                                <div><img class="full" src="../Content/images/photo/budi.jpg"/></div>
-                                <div>
-                                    <p class="full">I'm the best at culinary travel. <br/><br/>Enjoy a rare traditional Malay culinary while having a nice backpacking time.</p>
-                                </div>
-                            </div>
-                            <div id="tile2" class="live-tile blue" data-delay="-1" data-initdelay="-1" data-mode="flip" event_id="098585" activity_duration="150" title="Vivo City">    
-                                <span class="tile-title">Vivo City</span>
-                                <div><img class="full" src="../Content/images/photo/budi.jpg"/></div>
-                                <div>
-                                    <p class="full">I'm the best at culinary travel. <br/><br/>Enjoy a rare traditional Malay culinary while having a nice backpacking time.</p>
-                                </div>
-                            </div>
-                            <div id="tile2" class="live-tile blue" data-delay="-1" data-initdelay="-1" data-mode="flip" event_id="059815" activity_duration="150" title="Clarke Quay">    
-                                <span class="tile-title">Clarke Quay</span>
-                                <div><img class="full" src="../Content/images/photo/budi.jpg"/></div>
-                                <div>
-                                    <p class="full">I'm the best at culinary travel. <br/><br/>Enjoy a rare traditional Malay culinary while having a nice backpacking time.</p>
-                                </div>
-                            </div>
-                        </ul>
+                    <div class="live-tile mango modern" data-delay="-1" data-initdelay="" data-mode="flip" event_id="049835" activity_duration="300" title="Boat Quay">    
+                        <span class="tile-title">Boat Quay</span>
+                        <div><img class="full" src="../Content/images/photo/budi.jpg"/></div>
+                        <div>
+                            <p class="full">Enjoy a rare traditional Malay culinary while having a nice backpacking time.</p>
+                        </div>
+                    </div>
+
+                    <div class="live-tile green historical" data-delay="-1" data-initdelay="-1" data-mode="flip" event_id="049178" activity_duration="60" title="Fullerton Hotel">    
+                        <span class="tile-title">Fullerton Hotel</span>
+                        <div><img class="full" src="../Content/images/photo/budi.jpg"/></div>
+                        <div>
+                            <p class="full">Enjoy a rare traditional Malay culinary while having a nice backpacking time.</p>
+                        </div>
+                    </div>
+                    <div class="live-tile blue modern" data-delay="-1" data-initdelay="-1" data-mode="flip" event_id="098585" activity_duration="150" title="Vivo City">    
+                        <span class="tile-title">Vivo City</span>
+                        <div><img class="full" src="../Content/images/photo/budi.jpg"/></div>
+                        <div>
+                            <p class="full">Enjoy a rare traditional Malay culinary while having a nice backpacking time.</p>
+                        </div>
+                    </div>
+                    <div class="live-tile lime modern" data-delay="-1" data-initdelay="-1" data-mode="flip" event_id="059815" activity_duration="150" title="Clarke Quay">    
+                        <span class="tile-title">Clarke Quay</span>
+                        <div><img class="full" src="../Content/images/photo/budi.jpg"/></div>
+                        <div>
+                            <p class="full">Enjoy a rare traditional Malay culinary while having a nice backpacking time.</p>
+                        </div>
                     </div>
                 </div>
             </div>
