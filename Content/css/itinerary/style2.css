@@ -49,45 +49,6 @@ ul.menu li a:hover, ul.menu li.active a { color: #70a3b4; text-decoration: none;
 /*** Main ***/
 #main { padding: 0px 0px 40px; }
 
-/*** Slideshow ***/
-#slideshow { background: #cccccc; height: 380px!important; margin: 0px 10px 50px; position: relative; width: 940px; -moz-box-shadow: 0 0 5px #888; -webkit-box-shadow: 0 0 5px#888; box-shadow: 0 0 5px #888; }
-#slideshow .nivo-controlNav { bottom: -40px; left: 50%; margin-left: -30px; position: absolute;  }
-#slideshow .nivo-controlNav .nivo-control { background: url(../images/bullets.png) no-repeat; display: block; float: left; height: 20px; text-indent: -9999px; width: 22px; }
-#slideshow .nivo-controlNav .nivo-control.active { background: url(../images/bullets.png) no-repeat scroll 0 -22px; }
-
-
-.intro { padding-bottom:5px; padding-top:10px; margin: 0px 0px 50px; width: auto;  background: #cccccc; height:30px; background-image: linear-gradient(bottom, rgb(71,70,71) 29%, rgb(61,61,58) 79%, rgb(77,73,77) 54%);
-background-image: -o-linear-gradient(bottom, rgb(71,70,71) 29%, rgb(61,61,58) 79%, rgb(77,73,77) 54%);
-background-image: -moz-linear-gradient(bottom, rgb(71,70,71) 29%, rgb(61,61,58) 79%, rgb(77,73,77) 54%);
-background-image: -webkit-linear-gradient(bottom, rgb(71,70,71) 29%, rgb(61,61,58) 79%, rgb(77,73,77) 54%);
-background-image: -ms-linear-gradient(bottom, rgb(71,70,71) 29%, rgb(61,61,58) 79%, rgb(77,73,77) 54%);
-
-background-image: -webkit-gradient(
-	linear,
-	left bottom,
-	left top,
-	color-stop(0.29, rgb(71,70,71)),
-	color-stop(0.79, rgb(61,61,58)),
-	color-stop(0.54, rgb(77,73,77))
-);
-}
-.intro p { margin: 0px 0px 50px 50px; font-size: 20px; letter-spacing:7px; color:#FFF; font-weigh: bold; text-align: center;}
-
-#about { margin: 0px 10px 30px; }
-#about .column { float: left; margin-right: 40px; width: 200px; }
-#about .column.last { margin-right: 0px; }
-#about .column .image { background: #cccccc; height: 120px; margin-bottom: 15px; width: 200px; -moz-box-shadow: 0 0 5px #888; -webkit-box-shadow: 0 0 5px#888; box-shadow: 0 0 5px #888; }
-#about .column h2 { color: #000000; font-family: Georgia, Serif; font-size: 16px; }
-
-/* 'widths' sub menu */
-#layoutdims {
-	clear:both;
-	background:#eee;
-	border-top:4px solid #000;
-	margin:0;
-	padding:6px 15px !important;
-	text-align:right;
-}
 /* column container */
 .advsearch {
 	position:relative;	/* This fixes the IE7 overflow hidden bug */
@@ -102,15 +63,25 @@ background-image: -webkit-gradient(
 	width:100%;
 	position:relative;
 }
+.result_container {overflow:scroll; height:600px;}
 .result_container,
 .col2 {
 	float:left;
 	position:relative;
-	margin:10px 10px 10px 10px;
+	margin:10px 10px 10px;
 	padding:0 0 1em 0;
 	overflow:hidden;
 }
-#catalog {position:absolute; padding:10px; overflow:scroll; bottom:0px; background-color:#efe;}
+#catalog {
+  position:absolute; 
+  display: block; 
+  min-height: 470px; 
+  padding:10px; 
+  margin-right:50px; 
+  overflow:scroll; 
+  background-color:#efe;
+}
+
 /* 2 Column (left menu) settings */
 .leftmenu {
 	background:#fff;		/* right column background colour */
@@ -132,12 +103,18 @@ background-image: -webkit-gradient(
 #footer { background: #e4e4e4; border-top: 1px solid #d9d9d9;  }
 #footer .container { height: 60px; overflow: hidden; }
 #footer, .pust { height: 60px; }
-#footer p { float: right; font-size: 12px; margin: 15px 0px 0px; }
-#footer ul.menu { margin-top: 15px; }
+#footer p { float: right; font-size: 12px; margin: 5px 0px 0px; }
+#footer ul.menu { margin-top: 5px; list-style: none;}
 #footer ul.menu li { margin: 0px 25px 0px 0px; }
 
 
-#city { font-size: 30px; font-weight: bold; color:#133; margin-bottom:15px; margin-top:15px}
+#city { 
+  font-size: 30px; 
+  font-weight: bold; 
+  color:#133; 
+  margin-bottom:15px; 
+  margin-top:15px;
+}
 
 .live-tile {
 	-moz-border-radius: 5px;
@@ -145,6 +122,14 @@ background-image: -webkit-gradient(
 	-moz-box-shadow: 5px 5px 5px black;
 	-webkit-box-shadow: 5px 5px 5px black;
 	box-shadow: 5px 5px 5px black;
+}
+
+#map_container{
+  margin-left: 5px;
+  margin-top: 5px;
+  -moz-box-shadow: 0 0 5px 5px #888;
+  -webkit-box-shadow: 0 0 5px 5px#888;
+  box-shadow: 0 0 5px 5px #888;
 }
 
 /* isotop filtering */

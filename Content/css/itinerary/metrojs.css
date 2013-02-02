@@ -3,11 +3,11 @@
 {
 	color:#fff;
 	float:left;
-	height: 110px;
+	height: 120px;
 	margin:8px;
 	overflow:hidden;
 	position:relative;
-	width: 110px;
+	width: 120px;
 }
 .live-tile.two-wide, .list-tile.two-wide { width:390px; }
 .live-tile.two-tall, .list-tile.two-tall { height:390px; }
